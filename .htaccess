@@ -1,9 +1,15 @@
 # Set index.html as the default file
 DirectoryIndex index.html index.htm index.php
 
+# Proper MIME types for XML files (fixes sitemap issues)
+<IfModule mod_mime.c>
+    AddType application/xml .xml
+    AddType text/xml .xml
+</IfModule>
+
 # Enable GZIP compression for better performance
 <IfModule mod_deflate.c>
-    AddOutputFilterByType DEFLATE text/html text/css text/javascript application/javascript
+    AddOutputFilterByType DEFLATE text/html text/css text/javascript application/javascript application/xml text/xml
 </IfModule>
 
 # Prevent caching for development (remove in production)
