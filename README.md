@@ -1,13 +1,24 @@
-# 💕 Will You Be My Valentine?
+# 💕 Will You Be My Valentine? | Yes No Website
 
-A beautiful, interactive Valentine's Day surprise generator with a playful twist!
+A beautiful, interactive Valentine's Day **Yes or No website** with a playful twist! Create personalized valentine links where the "No" button runs away - making it the cutest **will you be my valentine yes no game** online!
 
 ## 🌐 Live Demo
-**[willyoubemyvalentine.fun](https://willyoubemyvalentine.fun)**
+**[willyoubemyvalentine.fun](https://willyoubemyvalentine.fun)** - Free Valentine Yes or No Website
+
+## 🎯 What is This?
+
+This is a **free valentine yes or no website** that lets you:
+- Create a personalized "Will You Be My Valentine?" link
+- Share it with your special someone
+- Watch as they try to click "No" - but the button escapes! 😄
+- Celebrate with fireworks when they say "Yes"!
+
+The perfect **valentine's day yes or no website** for asking someone to be your Valentine in a fun, memorable way!
 
 ## ✨ Features
 
-### 💝 Valentine Link Generator
+### 💝 Valentine Link Generator (Yes No Game)
+- **Yes or No Website** - Interactive valentine question with runaway No button
 - **Personalized Valentine Links** - Generate unique links with your name
 - **Playful Yes/No Game** - The "No" button runs away when clicked! 😄
 - **Beautiful Animations** - Fireworks & hearts celebration when they say Yes
@@ -109,9 +120,13 @@ npm run deploy
 | E-Card | [/ecard/](https://willyoubemyvalentine.fun/ecard/) | Digital card generator |
 | Articles | [/articles/](https://willyoubemyvalentine.fun/articles/) | Guides & tips |
 
+## 🔍 Keywords
+
+`will you be my valentine yes or no website` · `valentine yes no game` · `valentine link generator` · `will you be my valentine website` · `free valentine yes or no` · `valentine's day yes or no website` · `runaway no button` · `valentine e-card generator`
+
 ## 💖 Made with Love
 
-Created for Valentine's Day 2026 to help spread love in a fun, memorable way!
+Created for Valentine's Day 2026 to help spread love in a fun, memorable way! The best **free will you be my valentine yes or no website** online.
 
 ## 📄 License
 
@@ -120,3 +135,5 @@ MIT License - Feel free to use and modify!
 ---
 
 **🌹 Happy Valentine's Day! 🌹**
+
+*The cutest yes or no valentine website on the internet!*
