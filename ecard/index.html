@@ -17,7 +17,7 @@
     <title>Free Valentine E-Card Generator 💌 Send Digital Valentine Card Online 2026</title>
     <meta name="title" content="Free Valentine E-Card Generator 💌 Send Digital Valentine Card Online 2026">
     <meta name="description" content="Create a free will you be my valentine digital card! Send beautiful animated e-cards online via email or link. Interactive valentine card generator with envelope animation, custom messages & themes. 100% free, no signup!">
-    <meta name="keywords" content="will you be my valentine e card, valentine digital card free, send valentine card online, valentine e card generator, will you be my valentine online card, free valentine ecard, valentine card with name, digital valentine card maker, interactive valentine card, animated valentine e card, valentine email card, will you be my valentine email, valentine card generator 2026">
+    <meta name="keywords" content="will you be my valentine e card, valentine digital card free, send valentine card online, valentine e card generator, will you be my valentine online card, free valentine ecard, valentine card with name, digital valentine card maker, interactive valentine card, animated valentine e card, valentine email card, will you be my valentine email, valentine card generator 2026, valentine ecard maker, send ecard online free, romantic ecard generator, valentine greeting card online, personalized valentine ecard, valentine card with envelope animation, whatsapp valentine card, valentine card link generator, free online valentine card maker">
     <meta name="author" content="WillYouBeMyValentine.fun">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
     
@@ -66,17 +66,13 @@
     <meta name="msapplication-TileColor" content="#ff6b9d">
     <meta name="msapplication-TileImage" content="/Favicon/ms-icon-144x144.png">
     
-    <!-- Performance: Preconnect & DNS Prefetch -->
+    <!-- Performance -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
-    <link rel="preconnect" href="https://www.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://firebaseio.com">
-    <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
-    <link rel="dns-prefetch" href="https://www.gstatic.com">
     
     <!-- Use main styles.css -->
-    <link rel="stylesheet" href="../styles.css?v=18">
+    <link rel="stylesheet" href="../styles.css?v=21">
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     
     <!-- Prevent flash when viewing e-card -->
@@ -112,13 +108,63 @@
             },
             {
                 "@type": "Question",
+                "name": "How do I send the e-card via email?",
+                "acceptedAnswer": { "@type": "Answer", "text": "After creating your e-card, you'll get a shareable link. Click the Email button or copy the link to paste into any email. Your recipient just clicks to open their beautiful animated valentine!" }
+            },
+            {
+                "@type": "Question",
                 "name": "Is the e-card generator free?",
                 "acceptedAnswer": { "@type": "Answer", "text": "Yes! Our valentine e-card maker is 100% free. No signup required, no watermarks, no hidden fees. Create unlimited e-cards!" }
             },
             {
                 "@type": "Question",
-                "name": "How do I send the e-card?",
-                "acceptedAnswer": { "@type": "Answer", "text": "After creating your e-card, you get a shareable link. Copy and paste it into any email, WhatsApp, or SMS to send your digital valentine!" }
+                "name": "Can I add my own message?",
+                "acceptedAnswer": { "@type": "Answer", "text": "Absolutely! You can write a custom love message that appears on your e-card. If you leave it blank, a beautiful default romantic message will be used." }
+            },
+            {
+                "@type": "Question",
+                "name": "What themes are available?",
+                "acceptedAnswer": { "@type": "Answer", "text": "We offer 4 beautiful themes: Classic Red Hearts, Romantic Roses, Cute & Playful, and Elegant Purple. Each has unique colors and envelope styling!" }
+            },
+            {
+                "@type": "Question",
+                "name": "Can I track if they opened it?",
+                "acceptedAnswer": { "@type": "Answer", "text": "Yes! After creating your e-card, click Track Now to see when they opened it and whether they said Yes. Real-time updates!" }
+            },
+            {
+                "@type": "Question",
+                "name": "How do I share the valentine e-card on WhatsApp?",
+                "acceptedAnswer": { "@type": "Answer", "text": "After creating your digital valentine card, click the WhatsApp button to share directly. You can also copy the link and paste it in any WhatsApp chat to send your romantic e-card!" }
+            },
+            {
+                "@type": "Question",
+                "name": "Is this valentine e-card website safe?",
+                "acceptedAnswer": { "@type": "Answer", "text": "Absolutely! Our valentine e-card generator is 100% safe and legitimate. We don't collect personal data, require no signup, have no ads, and don't ask for payment." }
+            },
+            {
+                "@type": "Question",
+                "name": "Can I create multiple valentine e-cards?",
+                "acceptedAnswer": { "@type": "Answer", "text": "Yes! You can create unlimited free valentine e-cards. Send personalized digital valentine cards to friends, family, or that special someone. Each e-card gets a unique link!" }
+            },
+            {
+                "@type": "Question",
+                "name": "What happens when they open my e-card?",
+                "acceptedAnswer": { "@type": "Answer", "text": "When your valentine opens the e-card, they see a beautiful animated envelope. Tapping it reveals your personalized card with the Will You Be My Valentine question. The fun twist? The No button runs away, so they can only say Yes!" }
+            },
+            {
+                "@type": "Question",
+                "name": "Do I need to download an app to send e-cards?",
+                "acceptedAnswer": { "@type": "Answer", "text": "No app needed! Our online valentine card generator works directly in your browser. Create and send digital valentine cards instantly without downloading anything." }
+            },
+            {
+                "@type": "Question",
+                "name": "Can I send the e-card via text message (SMS)?",
+                "acceptedAnswer": { "@type": "Answer", "text": "Yes! Click the SMS button after creating your valentine e-card, or simply copy the link and paste it into any text message. Perfect for sending romantic digital cards to anyone!" }
+            },
+            {
+                "@type": "Question",
+                "name": "How long does the valentine e-card link last?",
+                "acceptedAnswer": { "@type": "Answer", "text": "Your valentine e-card link works forever! Unlike some services that expire cards, your digital valentine card will always be accessible." }
             }
         ]
     }
@@ -134,6 +180,24 @@
         
         /* Hide intro when viewing e-card */
         html.viewing-ecard #introScreen { display: none !important; }
+        
+        /* Creator Screen - Enable scrolling */
+        #creatorScreen {
+            overflow-y: auto;
+            overflow-x: hidden;
+            align-items: flex-start;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        #creatorScreen .name-input-wrapper {
+            width: 100%;
+            max-width: 420px;
+            margin: 0 auto;
+            padding: 20px 0 40px;
+            flex-shrink: 0;
+        }
         
         /* E-Card Creator Form */
         .ecard-creator {
@@ -357,23 +421,30 @@
         .loading-screen { display: flex; align-items: center; justify-content: center; min-height: 100vh; text-align: center; }
         .loading-screen .loading-emoji { font-size: 4rem; animation: pulse 1.5s infinite; }
         
-        /* Link screen styles - using #linkScreen for specificity to override main styles.css */
+        /* Link screen styles - make scrollable like home page */
+        #linkScreen {
+            overflow-y: auto;
+            overflow-x: hidden;
+            align-items: flex-start;
+            padding: 15px;
+        }
+        #linkScreen .link-wrapper {
+            width: 100%;
+            max-width: 480px;
+            margin: auto;
+            padding: 15px 0;
+        }
         #linkScreen .link-container { 
             display: block !important;
             flex-direction: unset !important;
-            background: white; 
-            border-radius: 20px; 
-            padding: 25px 20px; 
-            max-width: 420px; 
-            width: 90%; 
-            margin: 20px auto; 
-            box-shadow: 0 10px 40px rgba(255, 107, 157, 0.2); 
-            text-align: center;
+            max-height: none;
         }
+        /* Card preview styles for ecard */
         #linkScreen .card-preview { 
             background: linear-gradient(135deg, var(--primary-pink), var(--deep-pink)); 
             border-radius: 15px; 
             padding: 20px; 
+            margin-top: 15px;
             margin-bottom: 20px; 
             color: white; 
             text-align: center;
@@ -441,24 +512,29 @@
         #linkScreen .action-btn.test { background: white; color: var(--deep-pink); border: 2px solid var(--deep-pink); }
         #linkScreen .action-btn.track { background: #9c27b0; color: white; border: none; }
         
-        /* Back Button Styling - Modern Theme Style */
+        /* Back Button Styling - Match home page .btn-back style */
         .back-btn {
-            display: inline-block;
-            background: linear-gradient(135deg, var(--primary-pink), var(--deep-pink));
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: linear-gradient(135deg, #78909c, #546e7a);
             color: white;
             border: none;
-            padding: 12px 28px;
+            padding: 12px 24px;
             border-radius: 50px;
             font-size: 0.95rem;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
             text-decoration: none;
-            box-shadow: 0 4px 15px rgba(255, 107, 157, 0.3);
+            box-shadow: 0 4px 15px rgba(84, 110, 122, 0.3);
+            z-index: 100;
+            position: relative;
         }
         .back-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 25px rgba(255, 107, 157, 0.4);
+            box-shadow: 0 6px 20px rgba(84, 110, 122, 0.4);
+            background: linear-gradient(135deg, #90a4ae, #607d8b);
         }
         .back-btn:active {
             transform: translateY(0);
@@ -568,9 +644,180 @@
         .qr-hint { font-size: 0.7rem; color: var(--text-light); margin-bottom: 8px; }
         .btn-qr-download { background: linear-gradient(135deg, var(--primary-pink), var(--deep-pink)); color: white; border: none; padding: 8px 18px; border-radius: 20px; font-size: 0.8rem; font-weight: 600; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(255,107,157,0.3); }
         .btn-qr-download:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(255,107,157,0.4); }
+        
+        /* ============================================================================
+           SITE HEADER - Reusable Navigation Component
+           ============================================================================ */
+        .site-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(255, 107, 157, 0.1);
+            padding: 10px 20px;
+            transition: all 0.3s ease;
+        }
+        
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .header-brand {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            color: var(--deep-pink);
+            font-family: var(--font-display);
+            font-size: 1.3rem;
+            font-weight: 700;
+        }
+        
+        .header-brand:hover {
+            opacity: 0.9;
+        }
+        
+        .header-logo {
+            font-size: 1.5rem;
+        }
+        
+        /* Desktop Navigation */
+        .header-nav {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .header-nav a {
+            padding: 8px 14px;
+            color: var(--text-dark);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+        }
+        
+        .header-nav a:hover {
+            background: var(--light-pink);
+            color: var(--deep-pink);
+        }
+        
+        .header-nav a.active {
+            background: linear-gradient(135deg, var(--primary-pink), var(--deep-pink));
+            color: white;
+        }
+        
+        /* Mobile Menu Toggle */
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 5px;
+            color: var(--deep-pink);
+        }
+        
+        /* Mobile Navigation */
+        @media (max-width: 768px) {
+            .header-nav {
+                position: fixed;
+                top: 55px;
+                left: 0;
+                right: 0;
+                background: rgba(255, 255, 255, 0.98);
+                backdrop-filter: blur(10px);
+                flex-direction: column;
+                padding: 15px;
+                gap: 5px;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+                transform: translateY(-120%);
+                opacity: 0;
+                transition: all 0.3s ease;
+                pointer-events: none;
+            }
+            
+            .header-nav.open {
+                transform: translateY(0);
+                opacity: 1;
+                pointer-events: auto;
+            }
+            
+            .header-nav a {
+                width: 100%;
+                text-align: center;
+                padding: 12px 20px;
+            }
+            
+            .mobile-menu-toggle {
+                display: block;
+            }
+            
+            .header-brand {
+                font-size: 1.1rem;
+            }
+            
+            .header-logo {
+                font-size: 1.3rem;
+            }
+        }
+        
+        /* Add padding to body for fixed header */
+        body {
+            padding-top: 60px;
+        }
+        
+        /* Adjust screens for header */
+        .screen {
+            top: 60px;
+            height: calc(100% - 60px);
+        }
+        
+        /* Hide header when viewing e-card (recipient view) */
+        html.viewing-ecard .site-header {
+            display: none;
+        }
+        
+        html.viewing-ecard body {
+            padding-top: 0;
+        }
+        
+        html.viewing-ecard .screen {
+            top: 0;
+            height: 100%;
+        }
     </style>
 </head>
 <body>
+    <!-- Site Header - Reusable Navigation -->
+    <header class="site-header" id="siteHeader">
+        <div class="header-content">
+            <a href="/" class="header-brand">
+                <span class="header-logo">💕</span>
+                <span>WillYouBeMyValentine.fun</span>
+            </a>
+            <button class="mobile-menu-toggle" onclick="toggleMobileMenu()" aria-label="Toggle menu">
+                <span id="menuIcon">☰</span>
+            </button>
+            <nav class="header-nav" id="headerNav">
+                <a href="/">💝 Valentine Link</a>
+                <a href="/ecard/" class="active">💌 E-Cards</a>
+                <a href="/articles/">📝 Articles</a>
+                <a href="#faqSection" onclick="scrollToFaq(); closeMobileMenu(); return false;">❓ FAQ</a>
+                <a href="#aboutSection" onclick="closeMobileMenu();">ℹ️ About</a>
+            </nav>
+        </div>
+    </header>
+    
     <!-- Theme Animation Container -->
     <div id="themeAnimationContainer" class="theme-animation-container"></div>
     
@@ -697,7 +944,7 @@
                 
                 <!-- How It Works -->
                 <section class="info-section" id="howItWorks">
-                    <h2 class="section-title">💕 How It Works</h2>
+                    <h2 class="section-title">💕 How Valentine E-Card Generator Works</h2>
                     <div class="steps-container">
                         <div class="step">
                             <div class="step-number">1</div>
@@ -732,7 +979,7 @@
                 
                 <!-- Features -->
                 <section class="info-section" id="features">
-                    <h2 class="section-title">✨ Features</h2>
+                    <h2 class="section-title">✨ Valentine E-Card Features</h2>
                     <div class="features-grid">
                         <div class="feature-card">
                             <span class="feature-emoji">💌</span>
@@ -769,7 +1016,7 @@
                 
                 <!-- FAQ -->
                 <section class="info-section" id="faqSection">
-                    <h2 class="section-title">❓ Frequently Asked Questions</h2>
+                    <h2 class="section-title">❓ Valentine E-Card FAQs</h2>
                     <div class="faq-container">
                         <div class="faq-item" onclick="toggleFaq(this)">
                             <div class="faq-question">
@@ -825,6 +1072,69 @@
                                 <p>Yes! After creating your e-card, click "Track Now" to see when they opened it and whether they said Yes. Real-time updates!</p>
                             </div>
                         </div>
+                        <div class="faq-item" onclick="toggleFaq(this)">
+                            <div class="faq-question">
+                                <span>How do I share the valentine e-card on WhatsApp?</span>
+                                <span class="faq-toggle">+</span>
+                            </div>
+                            <div class="faq-answer">
+                                <p>After creating your digital valentine card, click the WhatsApp button to share directly. You can also copy the link and paste it in any WhatsApp chat to send your romantic e-card!</p>
+                            </div>
+                        </div>
+                        <div class="faq-item" onclick="toggleFaq(this)">
+                            <div class="faq-question">
+                                <span>Is this valentine e-card website safe?</span>
+                                <span class="faq-toggle">+</span>
+                            </div>
+                            <div class="faq-answer">
+                                <p>Absolutely! Our valentine e-card generator is 100% safe and legitimate. We don't collect personal data, require no signup, have no ads, and don't ask for payment. Your e-card link only contains the names you enter - nothing else.</p>
+                            </div>
+                        </div>
+                        <div class="faq-item" onclick="toggleFaq(this)">
+                            <div class="faq-question">
+                                <span>Can I create multiple valentine e-cards?</span>
+                                <span class="faq-toggle">+</span>
+                            </div>
+                            <div class="faq-answer">
+                                <p>Yes! You can create unlimited free valentine e-cards. Send personalized digital valentine cards to friends, family, or that special someone. Each e-card gets a unique link!</p>
+                            </div>
+                        </div>
+                        <div class="faq-item" onclick="toggleFaq(this)">
+                            <div class="faq-question">
+                                <span>What happens when they open my e-card?</span>
+                                <span class="faq-toggle">+</span>
+                            </div>
+                            <div class="faq-answer">
+                                <p>When your valentine opens the e-card, they see a beautiful animated envelope. Tapping it reveals your personalized card with the "Will You Be My Valentine?" question. The fun twist? The "No" button runs away, so they can only say Yes! Fireworks celebrate when they accept.</p>
+                            </div>
+                        </div>
+                        <div class="faq-item" onclick="toggleFaq(this)">
+                            <div class="faq-question">
+                                <span>Do I need to download an app to send e-cards?</span>
+                                <span class="faq-toggle">+</span>
+                            </div>
+                            <div class="faq-answer">
+                                <p>No app needed! Our online valentine card generator works directly in your browser. Create and send digital valentine cards instantly without downloading anything.</p>
+                            </div>
+                        </div>
+                        <div class="faq-item" onclick="toggleFaq(this)">
+                            <div class="faq-question">
+                                <span>Can I send the e-card via text message (SMS)?</span>
+                                <span class="faq-toggle">+</span>
+                            </div>
+                            <div class="faq-answer">
+                                <p>Yes! Click the SMS button after creating your valentine e-card, or simply copy the link and paste it into any text message. Perfect for sending romantic digital cards to anyone!</p>
+                            </div>
+                        </div>
+                        <div class="faq-item" onclick="toggleFaq(this)">
+                            <div class="faq-question">
+                                <span>How long does the valentine e-card link last?</span>
+                                <span class="faq-toggle">+</span>
+                            </div>
+                            <div class="faq-answer">
+                                <p>Your valentine e-card link works forever! Unlike some services that expire cards, your digital valentine card will always be accessible. Share it anytime during Valentine's season or save it as a romantic memory.</p>
+                            </div>
+                        </div>
                     </div>
                 </section>
                 
@@ -847,7 +1157,7 @@
                 
                 <!-- Keywords -->
                 <section class="info-section keywords-section">
-                    <h2 class="section-title">🌹 Popular E-Card Searches</h2>
+                    <h2 class="section-title">🌹 Popular Valentine E-Card Searches</h2>
                     <div class="keywords-cloud">
                         <span class="keyword-tag">valentine e card free</span>
                         <span class="keyword-tag">digital valentine card</span>
@@ -864,20 +1174,27 @@
                 </section>
                 
                 <!-- Footer -->
-                <footer class="footer">
-                    <div class="footer-brand">💕 WillYouBeMyValentine.fun</div>
-                    <div class="footer-links">
-                        <a href="#faqSection" onclick="scrollToFaq(); return false;">FAQ</a>
-                        <a href="#aboutSection">About</a>
-                        <a href="/articles/">Articles</a>
-                        <a href="#" onclick="showPrivacyModal(); return false;">Privacy</a>
+                <footer class="site-footer" id="footer">
+                    <div class="footer-content">
+                        <div class="footer-brand">
+                            <span class="footer-logo">💕</span>
+                            <span class="footer-name">WillYouBeMyValentine.fun</span>
+                        </div>
+                        <div class="footer-links">
+                            <a href="/" style="color: #ff6b9d; font-weight: 600;">💝 Valentine Link</a>
+                            <a href="#faqSection" onclick="scrollToFaq(); return false;">FAQ</a>
+                            <a href="#aboutSection">About</a>
+                            <a href="/articles/">Articles</a>
+                            <a href="#" onclick="showPrivacyModal(); return false;">Privacy</a>
+                        </div>
+                        <div class="footer-trust">
+                            <span>🔒 Safe</span>
+                            <span>🆓 Free</span>
+                            <span>❤️ Made with Love</span>
+                        </div>
+                        <p class="footer-copyright">© 2026 WillYouBeMyValentine.fun - Free Valentine E-Card Generator</p>
+                        <p class="footer-note">Not affiliated with any other valentine website or github projects. This is an original, safe, and trusted valentine e-card generator.</p>
                     </div>
-                    <div class="footer-badges">
-                        <span>🔒 Safe</span>
-                        <span>🆓 Free</span>
-                        <span>❤️ Made with Love</span>
-                    </div>
-                    <p class="footer-copyright">© 2026 WillYouBeMyValentine.fun - Free Valentine E-Card Generator</p>
                 </footer>
             </div>
         </div>
@@ -888,7 +1205,7 @@
         <div class="name-input-wrapper">
             <div class="ecard-creator">
                 <div class="heart-icon pulse" style="font-size: 2.5rem; margin-bottom: 15px;">💌</div>
-                <h2 class="input-title">Create Your E-Card</h2>
+                <h2 class="input-title">Create Your Valentine E-Card</h2>
                 
                 <div class="form-group">
                     <label>💝 Your Name (From)</label>
@@ -951,11 +1268,12 @@
     </section>
     
     <!-- Link Ready Screen -->
-    <section class="screen" id="linkScreen">
-        <div class="link-wrapper" style="display: flex; align-items: center; justify-content: center; min-height: 100vh; padding: 20px;">
-            <div class="link-container">
-                <div class="heart-icon" style="font-size: 2.5rem; margin-bottom: 10px;">💌</div>
-                <h2 class="input-title">Your E-Card is Ready!</h2>
+    <section class="screen link-screen" id="linkScreen">
+        <div class="link-wrapper">
+            <div class="card link-container">
+                <div class="success-icon">💌</div>
+                <h2 class="card-title">Your Valentine E-Card is Ready!</h2>
+                <p class="card-subtitle">Share this magical valentine e-card with your special someone</p>
                 
                 <div class="card-preview">
                     <div class="preview-label">From</div>
@@ -1041,15 +1359,111 @@
     </section>
     
     <!-- Success Screen -->
-    <section class="screen" id="successScreen">
+    <section class="screen success-screen" id="successScreen">
         <div class="confetti-container" id="confettiContainer"></div>
-        <div style="display: flex; align-items: center; justify-content: center; min-height: 100vh;">
+        <div style="display: flex; flex-direction: column; align-items: center; justify-content: flex-start; min-height: auto; padding-top: 40px; padding-bottom: 40px;">
             <div class="success-content">
                 <div class="success-heart">💖</div>
                 <h1 class="title" style="color: var(--deep-pink);">Yay! You Said Yes!</h1>
                 <p class="subtitle">This is the beginning of something beautiful!</p>
                 <div style="font-family: 'Dancing Script', cursive; font-size: 1.8rem; color: var(--deep-pink); margin-top: 20px;">
                     <span id="successFrom">Name</span> 💕 <span id="successTo">Name</span>
+                </div>
+            </div>
+            
+            <!-- What's Next Section - Post-YES Follow-up -->
+            <div class="whats-next-section" style="margin-top: 40px; padding-bottom: 40px;">
+                <h2 class="whats-next-title">💕 What's Next After Valentine E-Card?</h2>
+                
+                <!-- Romantic Quote Card -->
+                <div class="followup-card" id="quoteCardEcard">
+                    <div class="followup-header" onclick="toggleFollowupCard('quoteCardEcard')">
+                        <div class="followup-header-left">
+                            <span class="followup-icon">💌</span>
+                            <span class="followup-label">Romantic Quote to Share</span>
+                        </div>
+                        <span class="followup-toggle">▼</span>
+                    </div>
+                    <div class="followup-content">
+                        <div class="quote-display">
+                            <p class="quote-text" id="randomQuoteTextEcard">"You are my today and all of my tomorrows."</p>
+                            <p class="quote-author" id="randomQuoteAuthorEcard">— Leo Christopher</p>
+                        </div>
+                        <div class="quote-actions">
+                            <button class="btn-copy" onclick="copyQuote()">📋 Copy Quote</button>
+                            <button class="btn-refresh" onclick="getNewQuote()">🔄 New Quote</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Date Ideas Card -->
+                <div class="followup-card" id="dateIdeasCardEcard">
+                    <div class="followup-header" onclick="toggleFollowupCard('dateIdeasCardEcard')">
+                        <div class="followup-header-left">
+                            <span class="followup-icon">📍</span>
+                            <span class="followup-label">Date Ideas for You</span>
+                        </div>
+                        <span class="followup-toggle">▼</span>
+                    </div>
+                    <div class="followup-content">
+                        <div class="date-ideas-grid">
+                            <div class="date-idea-card" onclick="selectDateIdea(this)">
+                                <span class="date-idea-emoji">🌹</span>
+                                <div class="date-idea-title">Romantic Dinner</div>
+                                <div class="date-idea-desc">Cook together or candlelit restaurant</div>
+                            </div>
+                            <div class="date-idea-card" onclick="selectDateIdea(this)">
+                                <span class="date-idea-emoji">⭐</span>
+                                <div class="date-idea-title">Stargazing Night</div>
+                                <div class="date-idea-desc">Blankets, hot cocoa & the stars</div>
+                            </div>
+                            <div class="date-idea-card" onclick="selectDateIdea(this)">
+                                <span class="date-idea-emoji">🎬</span>
+                                <div class="date-idea-title">Movie Marathon</div>
+                                <div class="date-idea-desc">Cozy at-home cinema experience</div>
+                            </div>
+                            <div class="date-idea-card" onclick="selectDateIdea(this)">
+                                <span class="date-idea-emoji">🧺</span>
+                                <div class="date-idea-title">Picnic Date</div>
+                                <div class="date-idea-desc">Pack favorites & find a scenic spot</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Reply Templates Card -->
+                <div class="followup-card" id="replyCardEcard">
+                    <div class="followup-header" onclick="toggleFollowupCard('replyCardEcard')">
+                        <div class="followup-header-left">
+                            <span class="followup-icon">💬</span>
+                            <span class="followup-label">Send a Reply Back</span>
+                        </div>
+                        <span class="followup-toggle">▼</span>
+                    </div>
+                    <div class="followup-content">
+                        <div class="reply-templates">
+                            <div class="reply-template" onclick="copyReply(this)">
+                                <span class="reply-emoji">💖</span>
+                                <span class="reply-text">Yes, a thousand times yes! Can't wait to see you!</span>
+                                <span class="reply-copy-icon">📋</span>
+                            </div>
+                            <div class="reply-template" onclick="copyReply(this)">
+                                <span class="reply-emoji">🥰</span>
+                                <span class="reply-text">You just made my heart explode! I'm yours forever!</span>
+                                <span class="reply-copy-icon">📋</span>
+                            </div>
+                            <div class="reply-template" onclick="copyReply(this)">
+                                <span class="reply-emoji">💕</span>
+                                <span class="reply-text">Best question ever! The answer will always be YES!</span>
+                                <span class="reply-copy-icon">📋</span>
+                            </div>
+                            <div class="reply-template" onclick="copyReply(this)">
+                                <span class="reply-emoji">😘</span>
+                                <span class="reply-text">I was waiting for you to ask! Let's make this Valentine's unforgettable!</span>
+                                <span class="reply-copy-icon">📋</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -1087,8 +1501,8 @@
         </div>
     </div>
 
-    <!-- QR Code Library - Deferred -->
-    <script defer src="https://cdn.jsdelivr.net/npm/qrious@4.0.2/dist/qrious.min.js"></script>
+    <!-- QR Code Library -->
+    <script src="https://cdn.jsdelivr.net/npm/qrious@4.0.2/dist/qrious.min.js"></script>
     
     <!-- Firebase SDK -->
     <script type="module">
@@ -1437,9 +1851,33 @@
         }
         
         // UI functions (same as homepage)
-        function toggleFaq(element) { element.classList.toggle('open'); }
+        function toggleFaq(element) { element.classList.toggle('active'); }
         function scrollToInfo() { document.getElementById('infoSections').scrollIntoView({ behavior: 'smooth' }); }
         function scrollToFaq() { document.getElementById('faqSection').scrollIntoView({ behavior: 'smooth' }); }
+        
+        // Mobile Menu Functions
+        function toggleMobileMenu() {
+            const nav = document.getElementById('headerNav');
+            const icon = document.getElementById('menuIcon');
+            nav.classList.toggle('open');
+            icon.textContent = nav.classList.contains('open') ? '✕' : '☰';
+        }
+        
+        function closeMobileMenu() {
+            const nav = document.getElementById('headerNav');
+            const icon = document.getElementById('menuIcon');
+            nav.classList.remove('open');
+            icon.textContent = '☰';
+        }
+        
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(e) {
+            const header = document.getElementById('siteHeader');
+            const nav = document.getElementById('headerNav');
+            if (header && nav && !header.contains(e.target) && nav.classList.contains('open')) {
+                closeMobileMenu();
+            }
+        });
         function toggleShareMenu() { document.getElementById('shareMenu').classList.toggle('active'); }
         function shareSiteWhatsApp() { window.open('https://wa.me/?text=' + encodeURIComponent('Create free Valentine E-Cards! 💌 https://willyoubemyvalentine.fun/ecard/'), '_blank'); }
         function shareSiteTelegram() { window.open('https://t.me/share/url?url=' + encodeURIComponent('https://willyoubemyvalentine.fun/ecard/'), '_blank'); }
@@ -1701,6 +2139,146 @@
         // Close modals on outside click
         document.getElementById('dashboardModal').addEventListener('click', (e) => { if (e.target.id === 'dashboardModal') closeDashboard(); });
         document.getElementById('privacyModal').addEventListener('click', (e) => { if (e.target.id === 'privacyModal') closePrivacyModal(); });
+        
+        // ============================================================================
+        // WHAT'S NEXT - POST-YES FOLLOW-UP FUNCTIONALITY
+        // ============================================================================
+        
+        const romanticQuotes = [
+            { text: "You are my today and all of my tomorrows.", author: "Leo Christopher" },
+            { text: "In all the world, there is no heart for me like yours.", author: "Maya Angelou" },
+            { text: "I love you not only for what you are, but for what I am when I am with you.", author: "Roy Croft" },
+            { text: "Whatever our souls are made of, his and mine are the same.", author: "Emily Brontë" },
+            { text: "I have waited for this opportunity for more than half a century, to repeat to you once again my vow of eternal fidelity and everlasting love.", author: "Gabriel García Márquez" },
+            { text: "You are the finest, loveliest, tenderest person I have ever known.", author: "F. Scott Fitzgerald" },
+            { text: "I saw that you were perfect, and so I loved you. Then I saw that you were not perfect and I loved you even more.", author: "Angelita Lim" },
+            { text: "The best thing to hold onto in life is each other.", author: "Audrey Hepburn" },
+            { text: "If I know what love is, it is because of you.", author: "Hermann Hesse" },
+            { text: "I wish I could turn back the clock. I'd find you sooner and love you longer.", author: "Unknown" },
+            { text: "To love and be loved is to feel the sun from both sides.", author: "David Viscott" },
+            { text: "You are my heart, my life, my one and only thought.", author: "Arthur Conan Doyle" },
+            { text: "I fell in love the way you fall asleep: slowly, and then all at once.", author: "John Green" },
+            { text: "Every love story is beautiful, but ours is my favorite.", author: "Unknown" },
+            { text: "You make me want to be a better person.", author: "Melvin Udall" },
+            { text: "My heart is, and always will be, yours.", author: "Jane Austen" },
+            { text: "I choose you. And I'll choose you over and over. Without pause, without doubt, in a heartbeat.", author: "Unknown" },
+            { text: "You are the last thought in my mind before I drift off to sleep and the first thought when I wake up each morning.", author: "Unknown" },
+            { text: "Grow old with me, the best is yet to be.", author: "Robert Browning" },
+            { text: "In case you ever foolishly forget: I am never not thinking of you.", author: "Virginia Woolf" }
+        ];
+        
+        let currentQuoteIndex = Math.floor(Math.random() * romanticQuotes.length);
+        
+        // Initialize with random quote
+        const initQuote = romanticQuotes[currentQuoteIndex];
+        const quoteTextInit = document.getElementById('randomQuoteTextEcard');
+        const quoteAuthorInit = document.getElementById('randomQuoteAuthorEcard');
+        if (quoteTextInit) quoteTextInit.textContent = `"${initQuote.text}"`;
+        if (quoteAuthorInit) quoteAuthorInit.textContent = `— ${initQuote.author}`;
+        
+        function toggleFollowupCard(cardId) {
+            const card = document.getElementById(cardId);
+            if (!card) return;
+            card.classList.toggle('open');
+        }
+        
+        function getNewQuote() {
+            let newIndex;
+            do {
+                newIndex = Math.floor(Math.random() * romanticQuotes.length);
+            } while (newIndex === currentQuoteIndex && romanticQuotes.length > 1);
+            
+            currentQuoteIndex = newIndex;
+            const quote = romanticQuotes[currentQuoteIndex];
+            
+            const quoteTextEl = document.getElementById('randomQuoteTextEcard');
+            const quoteAuthorEl = document.getElementById('randomQuoteAuthorEcard');
+            
+            if (quoteTextEl) quoteTextEl.textContent = `"${quote.text}"`;
+            if (quoteAuthorEl) quoteAuthorEl.textContent = `— ${quote.author}`;
+        }
+        
+        function copyQuote() {
+            const quoteTextEl = document.getElementById('randomQuoteTextEcard');
+            const quoteAuthorEl = document.getElementById('randomQuoteAuthorEcard');
+            
+            if (!quoteTextEl || !quoteAuthorEl) return;
+            
+            const fullQuote = `${quoteTextEl.textContent} ${quoteAuthorEl.textContent}`;
+            
+            navigator.clipboard.writeText(fullQuote).then(() => {
+                showCopyToast('Quote copied!');
+            }).catch(() => {
+                const textArea = document.createElement('textarea');
+                textArea.value = fullQuote;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+                showCopyToast('Quote copied!');
+            });
+        }
+        
+        function selectDateIdea(element) {
+            document.querySelectorAll('.date-idea-card').forEach(card => {
+                card.classList.remove('selected');
+            });
+            
+            element.classList.add('selected');
+            
+            const title = element.querySelector('.date-idea-title').textContent;
+            const desc = element.querySelector('.date-idea-desc').textContent;
+            const emoji = element.querySelector('.date-idea-emoji').textContent;
+            
+            const dateText = `${emoji} Valentine's Date Idea: ${title} - ${desc}`;
+            navigator.clipboard.writeText(dateText).then(() => {
+                showCopyToast(`${emoji} ${title} copied!`);
+            }).catch(() => {
+                showCopyToast(`${emoji} ${title} selected!`);
+            });
+        }
+        
+        function copyReply(element) {
+            const replyText = element.querySelector('.reply-text').textContent;
+            
+            element.classList.add('copied');
+            const copyIcon = element.querySelector('.reply-copy-icon');
+            if (copyIcon) copyIcon.textContent = '✓';
+            
+            setTimeout(() => {
+                element.classList.remove('copied');
+                if (copyIcon) copyIcon.textContent = '📋';
+            }, 2000);
+            
+            navigator.clipboard.writeText(replyText).then(() => {
+                showCopyToast('Reply copied! Send it to your Valentine!');
+            }).catch(() => {
+                const textArea = document.createElement('textarea');
+                textArea.value = replyText;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+                showCopyToast('Reply copied!');
+            });
+        }
+        
+        function showCopyToast(message) {
+            const existingToast = document.querySelector('.copy-toast');
+            if (existingToast) existingToast.remove();
+            
+            const toast = document.createElement('div');
+            toast.className = 'copy-toast';
+            toast.innerHTML = `<span>✓</span> ${message}`;
+            document.body.appendChild(toast);
+            
+            setTimeout(() => { toast.classList.add('show'); }, 10);
+            
+            setTimeout(() => {
+                toast.classList.remove('show');
+                setTimeout(() => { toast.remove(); }, 300);
+            }, 2500);
+        }
     </script>
     
     <noscript>

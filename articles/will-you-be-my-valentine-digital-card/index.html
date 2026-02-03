@@ -287,9 +287,41 @@
             .comparison-table { font-size: 0.8rem; }
             .comparison-table th, .comparison-table td { padding: 8px 10px; }
         }
+        
+        /* Site Header */
+        .site-header { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); box-shadow: 0 2px 20px rgba(255,107,157,0.1); padding: 10px 20px; }
+        .header-content { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+        .header-brand { display: flex; align-items: center; gap: 8px; text-decoration: none; color: #ff4081; font-family: 'Dancing Script', cursive; font-size: 1.3rem; font-weight: 700; }
+        .header-brand:hover { opacity: 0.9; }
+        .header-logo { font-size: 1.5rem; }
+        .header-nav { display: flex; align-items: center; gap: 5px; }
+        .header-nav a { padding: 8px 14px; color: #333; text-decoration: none; font-size: 0.9rem; font-weight: 500; border-radius: 20px; transition: all 0.3s ease; }
+        .header-nav a:hover { background: #fff0f5; color: #ff4081; }
+        .header-nav a.active { background: linear-gradient(135deg, #ff6b9d, #ff4081); color: white; }
+        .mobile-menu-toggle { display: none; background: none; border: none; font-size: 1.5rem; cursor: pointer; padding: 5px; color: #ff4081; }
+        @media (max-width: 768px) {
+            .header-nav { position: fixed; top: 55px; left: 0; right: 0; background: rgba(255,255,255,0.98); backdrop-filter: blur(10px); flex-direction: column; padding: 15px; gap: 5px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); transform: translateY(-120%); opacity: 0; transition: all 0.3s ease; pointer-events: none; }
+            .header-nav.open { transform: translateY(0); opacity: 1; pointer-events: auto; }
+            .header-nav a { width: 100%; text-align: center; padding: 12px 20px; }
+            .mobile-menu-toggle { display: block; }
+            .header-brand { font-size: 1.1rem; }
+        }
+        body { padding-top: 60px; }
     </style>
 </head>
 <body>
+    <header class="site-header" id="siteHeader">
+        <div class="header-content">
+            <a href="/" class="header-brand"><span class="header-logo">💕</span><span>WillYouBeMyValentine.fun</span></a>
+            <button class="mobile-menu-toggle" onclick="toggleMobileMenu()" aria-label="Toggle menu"><span id="menuIcon">☰</span></button>
+            <nav class="header-nav" id="headerNav">
+                <a href="/">💝 Valentine Link</a>
+                <a href="/ecard/">💌 E-Cards</a>
+                <a href="/articles/" class="active">📝 Articles</a>
+            </nav>
+        </div>
+    </header>
+    
     <header class="header">
         <span class="tag">💌 Digital Cards</span>
         <h1>Free Will You Be My Valentine Digital Card & E-Card Generator</h1>
@@ -491,5 +523,10 @@
             <a href="/ecard/" style="color: #9c27b0;">💌 Create E-Card →</a>
         </nav>
     </div>
+    <script>
+        function toggleMobileMenu() { const nav = document.getElementById('headerNav'); const icon = document.getElementById('menuIcon'); if (nav && icon) { nav.classList.toggle('open'); icon.textContent = nav.classList.contains('open') ? '✕' : '☰'; } }
+        function closeMobileMenu() { const nav = document.getElementById('headerNav'); const icon = document.getElementById('menuIcon'); if (nav && icon) { nav.classList.remove('open'); icon.textContent = '☰'; } }
+        document.addEventListener('click', function(e) { const header = document.getElementById('siteHeader'); const nav = document.getElementById('headerNav'); if (header && nav && !header.contains(e.target) && nav.classList.contains('open')) { closeMobileMenu(); } });
+    </script>
 </body>
 </html>

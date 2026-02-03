@@ -12,6 +12,7 @@ let noButtonMoveCount = 0;
 let currentTrackingId = null; // Current valentine tracking ID
 let dashboardListener = null; // Firebase listener for real-time updates
 let currentQRLink = null; // Current QR code link for download
+let isTestMode = false; // Flag to track if user is testing their own link
 
 const teaseMessages = [
     "Oops! Try again! 😏",
@@ -378,9 +379,43 @@ function testYourself() {
     const senderName = urlParams.get('from');
     
     if (senderName) {
+        // Set test mode flag
+        isTestMode = true;
+        showBackButtons(true);
+        
         // Show the question screen with the name
         showQuestionScreen(decodeURIComponent(senderName));
     }
+}
+
+/**
+ * Show/hide back buttons on question and success screens
+ * @param {boolean} show - Whether to show the buttons
+ */
+function showBackButtons(show) {
+    const questionBackBtn = document.getElementById('questionBackBtn');
+    const successBackBtn = document.getElementById('successBackBtn');
+    
+    if (questionBackBtn) {
+        questionBackBtn.style.display = show ? 'inline-flex' : 'none';
+    }
+    if (successBackBtn) {
+        successBackBtn.style.display = show ? 'inline-flex' : 'none';
+    }
+}
+
+/**
+ * Go back to the link screen from test mode
+ */
+function goBackToLink() {
+    isTestMode = false;
+    showBackButtons(false);
+    showScreen('linkScreen');
+    
+    // Reset any test state
+    noButtonMoveCount = 0;
+    const teaseText = document.getElementById('teaseText');
+    if (teaseText) teaseText.textContent = '';
 }
 
 // ============================================================================
@@ -684,6 +719,39 @@ function scrollToSection(sectionId) {
         section.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
 }
+
+/**
+ * Toggle mobile navigation menu
+ */
+function toggleMobileMenu() {
+    const nav = document.getElementById('headerNav');
+    const icon = document.getElementById('menuIcon');
+    if (nav && icon) {
+        nav.classList.toggle('open');
+        icon.textContent = nav.classList.contains('open') ? '✕' : '☰';
+    }
+}
+
+/**
+ * Close mobile navigation menu
+ */
+function closeMobileMenu() {
+    const nav = document.getElementById('headerNav');
+    const icon = document.getElementById('menuIcon');
+    if (nav && icon) {
+        nav.classList.remove('open');
+        icon.textContent = '☰';
+    }
+}
+
+// Close mobile menu when clicking outside
+document.addEventListener('click', function(e) {
+    const header = document.getElementById('siteHeader');
+    const nav = document.getElementById('headerNav');
+    if (header && nav && !header.contains(e.target) && nav.classList.contains('open')) {
+        closeMobileMenu();
+    }
+});
 
 /**
  * Toggle FAQ item open/closed
@@ -1187,5 +1255,212 @@ function showTestimonial(index) {
             currentTestimonial = (currentTestimonial + 1) % testimonials.length;
             showTestimonial(currentTestimonial);
         }, 4000);
+    }
+}
+
+// ============================================================================
+// WHAT'S NEXT - POST-YES FOLLOW-UP FUNCTIONALITY
+// ============================================================================
+
+/**
+ * Collection of romantic quotes for the follow-up section
+ */
+const romanticQuotes = [
+    { text: "You are my today and all of my tomorrows.", author: "Leo Christopher" },
+    { text: "In all the world, there is no heart for me like yours.", author: "Maya Angelou" },
+    { text: "I love you not only for what you are, but for what I am when I am with you.", author: "Roy Croft" },
+    { text: "Whatever our souls are made of, his and mine are the same.", author: "Emily Brontë" },
+    { text: "I have waited for this opportunity for more than half a century, to repeat to you once again my vow of eternal fidelity and everlasting love.", author: "Gabriel García Márquez" },
+    { text: "You are the finest, loveliest, tenderest person I have ever known.", author: "F. Scott Fitzgerald" },
+    { text: "I saw that you were perfect, and so I loved you. Then I saw that you were not perfect and I loved you even more.", author: "Angelita Lim" },
+    { text: "The best thing to hold onto in life is each other.", author: "Audrey Hepburn" },
+    { text: "If I know what love is, it is because of you.", author: "Hermann Hesse" },
+    { text: "I wish I could turn back the clock. I'd find you sooner and love you longer.", author: "Unknown" },
+    { text: "To love and be loved is to feel the sun from both sides.", author: "David Viscott" },
+    { text: "You are my heart, my life, my one and only thought.", author: "Arthur Conan Doyle" },
+    { text: "I fell in love the way you fall asleep: slowly, and then all at once.", author: "John Green" },
+    { text: "Every love story is beautiful, but ours is my favorite.", author: "Unknown" },
+    { text: "You make me want to be a better person.", author: "Melvin Udall" },
+    { text: "My heart is, and always will be, yours.", author: "Jane Austen" },
+    { text: "I choose you. And I'll choose you over and over. Without pause, without doubt, in a heartbeat.", author: "Unknown" },
+    { text: "You are the last thought in my mind before I drift off to sleep and the first thought when I wake up each morning.", author: "Unknown" },
+    { text: "Grow old with me, the best is yet to be.", author: "Robert Browning" },
+    { text: "In case you ever foolishly forget: I am never not thinking of you.", author: "Virginia Woolf" }
+];
+
+let currentQuoteIndex = 0;
+
+/**
+ * Toggle followup card open/close
+ * @param {string} cardId - ID of the card to toggle
+ */
+function toggleFollowupCard(cardId) {
+    const card = document.getElementById(cardId);
+    if (!card) return;
+    
+    card.classList.toggle('open');
+}
+
+/**
+ * Get a new random quote
+ */
+function getNewQuote() {
+    // Get a different quote than current
+    let newIndex;
+    do {
+        newIndex = Math.floor(Math.random() * romanticQuotes.length);
+    } while (newIndex === currentQuoteIndex && romanticQuotes.length > 1);
+    
+    currentQuoteIndex = newIndex;
+    const quote = romanticQuotes[currentQuoteIndex];
+    
+    // Update both possible quote elements (main page and ecard page)
+    const quoteTextEl = document.getElementById('randomQuoteText') || document.getElementById('randomQuoteTextEcard');
+    const quoteAuthorEl = document.getElementById('randomQuoteAuthor') || document.getElementById('randomQuoteAuthorEcard');
+    
+    if (quoteTextEl) {
+        quoteTextEl.textContent = `"${quote.text}"`;
+    }
+    if (quoteAuthorEl) {
+        quoteAuthorEl.textContent = `— ${quote.author}`;
+    }
+}
+
+/**
+ * Copy current quote to clipboard
+ */
+function copyQuote() {
+    const quoteTextEl = document.getElementById('randomQuoteText') || document.getElementById('randomQuoteTextEcard');
+    const quoteAuthorEl = document.getElementById('randomQuoteAuthor') || document.getElementById('randomQuoteAuthorEcard');
+    
+    if (!quoteTextEl || !quoteAuthorEl) return;
+    
+    const fullQuote = `${quoteTextEl.textContent} ${quoteAuthorEl.textContent}`;
+    
+    navigator.clipboard.writeText(fullQuote).then(() => {
+        showCopyToast('Quote copied!');
+    }).catch(() => {
+        // Fallback for older browsers
+        const textArea = document.createElement('textarea');
+        textArea.value = fullQuote;
+        document.body.appendChild(textArea);
+        textArea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textArea);
+        showCopyToast('Quote copied!');
+    });
+}
+
+/**
+ * Select a date idea (visual feedback)
+ * @param {HTMLElement} element - The clicked date idea card
+ */
+function selectDateIdea(element) {
+    // Remove selected class from all cards
+    document.querySelectorAll('.date-idea-card').forEach(card => {
+        card.classList.remove('selected');
+    });
+    
+    // Add selected class to clicked card
+    element.classList.add('selected');
+    
+    // Get the date idea text
+    const title = element.querySelector('.date-idea-title').textContent;
+    const desc = element.querySelector('.date-idea-desc').textContent;
+    const emoji = element.querySelector('.date-idea-emoji').textContent;
+    
+    // Copy to clipboard
+    const dateText = `${emoji} Valentine's Date Idea: ${title} - ${desc}`;
+    navigator.clipboard.writeText(dateText).then(() => {
+        showCopyToast(`${emoji} ${title} copied!`);
+    }).catch(() => {
+        showCopyToast(`${emoji} ${title} selected!`);
+    });
+}
+
+/**
+ * Copy reply template to clipboard
+ * @param {HTMLElement} element - The clicked reply template
+ */
+function copyReply(element) {
+    const replyText = element.querySelector('.reply-text').textContent;
+    
+    // Visual feedback - add copied class
+    element.classList.add('copied');
+    const copyIcon = element.querySelector('.reply-copy-icon');
+    if (copyIcon) {
+        copyIcon.textContent = '✓';
+    }
+    
+    // Reset after 2 seconds
+    setTimeout(() => {
+        element.classList.remove('copied');
+        if (copyIcon) {
+            copyIcon.textContent = '📋';
+        }
+    }, 2000);
+    
+    navigator.clipboard.writeText(replyText).then(() => {
+        showCopyToast('Reply copied! Send it to your Valentine!');
+    }).catch(() => {
+        // Fallback
+        const textArea = document.createElement('textarea');
+        textArea.value = replyText;
+        document.body.appendChild(textArea);
+        textArea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textArea);
+        showCopyToast('Reply copied!');
+    });
+}
+
+/**
+ * Show a toast notification for copy actions
+ * @param {string} message - Message to display
+ */
+function showCopyToast(message) {
+    // Remove existing toast if any
+    const existingToast = document.querySelector('.copy-toast');
+    if (existingToast) {
+        existingToast.remove();
+    }
+    
+    // Create toast element
+    const toast = document.createElement('div');
+    toast.className = 'copy-toast';
+    toast.innerHTML = `<span>✓</span> ${message}`;
+    document.body.appendChild(toast);
+    
+    // Trigger animation
+    setTimeout(() => {
+        toast.classList.add('show');
+    }, 10);
+    
+    // Remove after 2.5 seconds
+    setTimeout(() => {
+        toast.classList.remove('show');
+        setTimeout(() => {
+            toast.remove();
+        }, 300);
+    }, 2500);
+}
+
+/**
+ * Initialize What's Next section with a random quote
+ */
+function initWhatsNext() {
+    // Set a random quote on load
+    currentQuoteIndex = Math.floor(Math.random() * romanticQuotes.length);
+    const quote = romanticQuotes[currentQuoteIndex];
+    
+    // Update both possible quote elements
+    const quoteTextEl = document.getElementById('randomQuoteText') || document.getElementById('randomQuoteTextEcard');
+    const quoteAuthorEl = document.getElementById('randomQuoteAuthor') || document.getElementById('randomQuoteAuthorEcard');
+    
+    if (quoteTextEl) {
+        quoteTextEl.textContent = `"${quote.text}"`;
+    }
+    if (quoteAuthorEl) {
+        quoteAuthorEl.textContent = `— ${quote.author}`;
     }
 }

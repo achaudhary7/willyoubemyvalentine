@@ -78,24 +78,18 @@
     <!-- Performance: Preconnect & DNS Prefetch -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
-    <link rel="preconnect" href="https://www.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://firebaseio.com">
     <link rel="dns-prefetch" href="https://fonts.googleapis.com">
     <link rel="dns-prefetch" href="https://fonts.gstatic.com">
-    <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
-    <link rel="dns-prefetch" href="https://www.gstatic.com">
     <link rel="dns-prefetch" href="https://firebaseio.com">
     
     <!-- Stylesheets with font-display optimization -->
-    <link rel="stylesheet" href="styles.css?v=17">
+    <link rel="stylesheet" href="styles.css?v=20">
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     
     <!-- Preload critical resources -->
-    <link rel="preload" href="styles.css?v=18" as="style">
-    <link rel="preload" href="script.js?v=11" as="script">
-    <!-- Preload main fonts for faster LCP -->
-    <link rel="preload" href="https://fonts.gstatic.com/s/poppins/v24/pxiByp8kv8JHgFVrLCz7Z1xlFQ.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="styles.css?v=21" as="style">
+    <link rel="preload" href="script.js?v=13" as="script">
     
     <!-- JSON-LD Structured Data -->
     <script type="application/ld+json">
@@ -268,6 +262,30 @@
                     "@type": "Answer",
                     "text": "You can send your valentine link anytime during Valentine Week 2026 (Feb 7-14)! Popular times include Rose Day (Feb 7), Propose Day (Feb 8), or Valentine's Day itself (Feb 14). Some people even send it at midnight on Feb 14!"
                 }
+            },
+            {
+                "@type": "Question",
+                "name": "Does the valentine link expire?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "No, your valentine link never expires! Once created, your link works forever. Your valentine can open it anytime - today, next week, or even years from now. The romantic surprise will always be waiting for them!"
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "What data do you store about me?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "We store minimal data for tracking features only: the sender's name, link open count, and whether Yes was clicked. We do NOT store email addresses, phone numbers, IP addresses, or any personal information. Your privacy is our priority!"
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Is my privacy protected on this website?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Absolutely! We don't use cookies for tracking, don't require any signup, and don't collect personal information. The link only contains your chosen display name - nothing else. We believe romance should be private and safe."
+                }
             }
         ]
     }
@@ -322,8 +340,142 @@
             .floating-hearts { display: none; }
         </style>
     </noscript>
+    
+    <!-- Site Header Styles -->
+    <style>
+        /* Site Header - Reusable Navigation Component */
+        .site-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(255, 107, 157, 0.1);
+            padding: 10px 20px;
+            transition: all 0.3s ease;
+        }
+        
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .header-brand {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            color: var(--deep-pink);
+            font-family: var(--font-display);
+            font-size: 1.3rem;
+            font-weight: 700;
+        }
+        
+        .header-brand:hover { opacity: 0.9; }
+        .header-logo { font-size: 1.5rem; }
+        
+        .header-nav {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .header-nav a {
+            padding: 8px 14px;
+            color: var(--text-dark);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+        }
+        
+        .header-nav a:hover {
+            background: var(--light-pink);
+            color: var(--deep-pink);
+        }
+        
+        .header-nav a.active {
+            background: linear-gradient(135deg, var(--primary-pink), var(--deep-pink));
+            color: white;
+        }
+        
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 5px;
+            color: var(--deep-pink);
+        }
+        
+        @media (max-width: 768px) {
+            .header-nav {
+                position: fixed;
+                top: 55px;
+                left: 0;
+                right: 0;
+                background: rgba(255, 255, 255, 0.98);
+                backdrop-filter: blur(10px);
+                flex-direction: column;
+                padding: 15px;
+                gap: 5px;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+                transform: translateY(-120%);
+                opacity: 0;
+                transition: all 0.3s ease;
+                pointer-events: none;
+            }
+            
+            .header-nav.open {
+                transform: translateY(0);
+                opacity: 1;
+                pointer-events: auto;
+            }
+            
+            .header-nav a {
+                width: 100%;
+                text-align: center;
+                padding: 12px 20px;
+            }
+            
+            .mobile-menu-toggle { display: block; }
+            .header-brand { font-size: 1.1rem; }
+            .header-logo { font-size: 1.3rem; }
+        }
+        
+        body { padding-top: 60px; }
+        .screen { top: 60px; height: calc(100% - 60px); }
+    </style>
 </head>
 <body>
+    <!-- Site Header - Reusable Navigation -->
+    <header class="site-header" id="siteHeader">
+        <div class="header-content">
+            <a href="/" class="header-brand">
+                <span class="header-logo">💕</span>
+                <span>WillYouBeMyValentine.fun</span>
+            </a>
+            <button class="mobile-menu-toggle" onclick="toggleMobileMenu()" aria-label="Toggle menu">
+                <span id="menuIcon">☰</span>
+            </button>
+            <nav class="header-nav" id="headerNav">
+                <a href="/" class="active">💝 Valentine Link</a>
+                <a href="/ecard/">💌 E-Cards</a>
+                <a href="/articles/">📝 Articles</a>
+                <a href="#faqSection" onclick="scrollToSection('faqSection'); closeMobileMenu(); return false;">❓ FAQ</a>
+                <a href="#aboutSection" onclick="scrollToSection('aboutSection'); closeMobileMenu(); return false;">ℹ️ About</a>
+            </nav>
+        </div>
+    </header>
+    
     <!-- Floating Hearts Background -->
     <div class="floating-hearts" id="floatingHearts"></div>
 
@@ -512,6 +664,45 @@
                     </div>
                 </section>
                 
+                <!-- Helpful Articles Section - Internal Links for SEO -->
+                <section class="info-section" id="helpfulArticles">
+                    <h2 class="section-title">📚 Learn More About Valentine Links</h2>
+                    <div class="articles-links">
+                        <a href="/articles/is-willyoubemyvalentine-safe.html" class="article-link-card">
+                            <span class="article-link-icon">🔒</span>
+                            <div class="article-link-content">
+                                <h3>Is This Link Safe?</h3>
+                                <p>Learn why our valentine links are 100% safe and trustworthy</p>
+                            </div>
+                            <span class="article-link-arrow">→</span>
+                        </a>
+                        <a href="/articles/how-valentine-link-generator-works.html" class="article-link-card">
+                            <span class="article-link-icon">⚙️</span>
+                            <div class="article-link-content">
+                                <h3>How It Works</h3>
+                                <p>Step-by-step guide to creating your perfect valentine surprise</p>
+                            </div>
+                            <span class="article-link-arrow">→</span>
+                        </a>
+                        <a href="/articles/valentine-proposal-ideas-2026.html" class="article-link-card">
+                            <span class="article-link-icon">💡</span>
+                            <div class="article-link-content">
+                                <h3>Valentine Proposal Ideas 2026</h3>
+                                <p>Creative ways to ask your special someone</p>
+                            </div>
+                            <span class="article-link-arrow">→</span>
+                        </a>
+                        <a href="/ecard/" class="article-link-card">
+                            <span class="article-link-icon">💌</span>
+                            <div class="article-link-content">
+                                <h3>Try Our E-Card Generator</h3>
+                                <p>Create beautiful digital valentine cards with custom messages</p>
+                            </div>
+                            <span class="article-link-arrow">→</span>
+                        </a>
+                    </div>
+                </section>
+                
                 <!-- FAQ Section - Visible -->
                 <section class="info-section" id="faqSection">
                     <h2 class="section-title">❓ Valentine Yes or No Website FAQ</h2>
@@ -676,6 +867,33 @@
                             </div>
                             <div class="faq-answer">
                                 <p>You can send your valentine link anytime during Valentine Week 2026 (Feb 7-14)! Popular times include Rose Day (Feb 7), Propose Day (Feb 8), or Valentine's Day itself (Feb 14). Some people even send it at midnight on Feb 14 for a romantic surprise!</p>
+                            </div>
+                        </div>
+                        <div class="faq-item" onclick="toggleFaq(this)">
+                            <div class="faq-question">
+                                <span>Does the valentine link expire?</span>
+                                <span class="faq-toggle">+</span>
+                            </div>
+                            <div class="faq-answer">
+                                <p>No, your valentine link never expires! Once created, your link works forever. Your valentine can open it anytime - today, next week, or even years from now. The romantic surprise will always be waiting for them!</p>
+                            </div>
+                        </div>
+                        <div class="faq-item" onclick="toggleFaq(this)">
+                            <div class="faq-question">
+                                <span>What data do you store about me?</span>
+                                <span class="faq-toggle">+</span>
+                            </div>
+                            <div class="faq-answer">
+                                <p>We store minimal data for tracking features only: the sender's name, link open count, and whether "Yes" was clicked. We do NOT store email addresses, phone numbers, IP addresses, or any personal information. Your privacy is our priority!</p>
+                            </div>
+                        </div>
+                        <div class="faq-item" onclick="toggleFaq(this)">
+                            <div class="faq-question">
+                                <span>Is my privacy protected on this website?</span>
+                                <span class="faq-toggle">+</span>
+                            </div>
+                            <div class="faq-answer">
+                                <p>Absolutely! We don't use cookies for tracking, don't require any signup, and don't collect personal information. The link only contains your chosen display name - nothing else. We believe romance should be private and safe. Read our full <a href="#" onclick="showPrivacy(); return false;" style="color: var(--primary-pink);">Privacy Policy</a> for details.</p>
                             </div>
                         </div>
                     </div>
@@ -876,13 +1094,14 @@
                 </div>
                 
                 <div class="link-actions">
-                    <button class="btn btn-test" onclick="testYourself()">
-                        <span>👀 Test It</span>
+                    <button class="btn btn-preview" onclick="testYourself()">
+                        <span>👁️ Preview Link</span>
                     </button>
                     <button class="btn btn-track" onclick="openTracking()">
-                        <span>📊 Track Now</span>
+                        <span>📊 Track</span>
                     </button>
                 </div>
+                <p class="preview-hint">Preview how your valentine will see it before sharing!</p>
                 
                 <p class="hint">💡 When they open the link, the magic begins!</p>
             </div>
@@ -909,6 +1128,11 @@
                 </button>
             </div>
             <p class="tease-text" id="teaseText"></p>
+            
+            <!-- Back button for test mode -->
+            <button class="btn btn-back" id="questionBackBtn" onclick="goBackToLink()" style="display: none;">
+                ← Back to My Link
+            </button>
         </div>
     </section>
 
@@ -932,6 +1156,107 @@
                     <p>"You are my today and all of my tomorrows."</p>
                 </div>
                 <div class="hearts-rain" id="heartsRain"></div>
+                
+                <!-- Back button for test mode -->
+                <button class="btn btn-back" id="successBackBtn" onclick="goBackToLink()" style="display: none;">
+                    ← Back to My Link
+                </button>
+                
+                <!-- What's Next Section - Post-YES Follow-up -->
+                <div class="whats-next-section">
+                    <h2 class="whats-next-title">💕 What's Next?</h2>
+                    
+                    <!-- Romantic Quote Card -->
+                    <div class="followup-card" id="quoteCard">
+                        <div class="followup-header" onclick="toggleFollowupCard('quoteCard')">
+                            <div class="followup-header-left">
+                                <span class="followup-icon">💌</span>
+                                <span class="followup-label">Romantic Quote to Share</span>
+                            </div>
+                            <span class="followup-toggle">▼</span>
+                        </div>
+                        <div class="followup-content">
+                            <div class="quote-display">
+                                <p class="quote-text" id="randomQuoteText">"You are my today and all of my tomorrows."</p>
+                                <p class="quote-author" id="randomQuoteAuthor">— Leo Christopher</p>
+                            </div>
+                            <div class="quote-actions">
+                                <button class="btn-copy" onclick="copyQuote()">📋 Copy Quote</button>
+                                <button class="btn-refresh" onclick="getNewQuote()">🔄 New Quote</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Date Ideas Card -->
+                    <div class="followup-card" id="dateIdeasCard">
+                        <div class="followup-header" onclick="toggleFollowupCard('dateIdeasCard')">
+                            <div class="followup-header-left">
+                                <span class="followup-icon">📍</span>
+                                <span class="followup-label">Date Ideas for You</span>
+                            </div>
+                            <span class="followup-toggle">▼</span>
+                        </div>
+                        <div class="followup-content">
+                            <div class="date-ideas-grid">
+                                <div class="date-idea-card" onclick="selectDateIdea(this)">
+                                    <span class="date-idea-emoji">🌹</span>
+                                    <div class="date-idea-title">Romantic Dinner</div>
+                                    <div class="date-idea-desc">Cook together or candlelit restaurant</div>
+                                </div>
+                                <div class="date-idea-card" onclick="selectDateIdea(this)">
+                                    <span class="date-idea-emoji">⭐</span>
+                                    <div class="date-idea-title">Stargazing Night</div>
+                                    <div class="date-idea-desc">Blankets, hot cocoa & the stars</div>
+                                </div>
+                                <div class="date-idea-card" onclick="selectDateIdea(this)">
+                                    <span class="date-idea-emoji">🎬</span>
+                                    <div class="date-idea-title">Movie Marathon</div>
+                                    <div class="date-idea-desc">Cozy at-home cinema experience</div>
+                                </div>
+                                <div class="date-idea-card" onclick="selectDateIdea(this)">
+                                    <span class="date-idea-emoji">🧺</span>
+                                    <div class="date-idea-title">Picnic Date</div>
+                                    <div class="date-idea-desc">Pack favorites & find a scenic spot</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Reply Templates Card -->
+                    <div class="followup-card" id="replyCard">
+                        <div class="followup-header" onclick="toggleFollowupCard('replyCard')">
+                            <div class="followup-header-left">
+                                <span class="followup-icon">💬</span>
+                                <span class="followup-label">Send a Reply Back</span>
+                            </div>
+                            <span class="followup-toggle">▼</span>
+                        </div>
+                        <div class="followup-content">
+                            <div class="reply-templates">
+                                <div class="reply-template" onclick="copyReply(this)">
+                                    <span class="reply-emoji">💖</span>
+                                    <span class="reply-text">Yes, a thousand times yes! Can't wait to see you!</span>
+                                    <span class="reply-copy-icon">📋</span>
+                                </div>
+                                <div class="reply-template" onclick="copyReply(this)">
+                                    <span class="reply-emoji">🥰</span>
+                                    <span class="reply-text">You just made my heart explode! I'm yours forever!</span>
+                                    <span class="reply-copy-icon">📋</span>
+                                </div>
+                                <div class="reply-template" onclick="copyReply(this)">
+                                    <span class="reply-emoji">💕</span>
+                                    <span class="reply-text">Best question ever! The answer will always be YES!</span>
+                                    <span class="reply-copy-icon">📋</span>
+                                </div>
+                                <div class="reply-template" onclick="copyReply(this)">
+                                    <span class="reply-emoji">😘</span>
+                                    <span class="reply-text">I was waiting for you to ask! Let's make this Valentine's unforgettable!</span>
+                                    <span class="reply-copy-icon">📋</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -1077,12 +1402,12 @@
         <p><strong>Valentine's Day 2026</strong> - Make it special with a safe, free, personalized valentine surprise at willyoubemyvalentine.fun - the trusted will you be my valentine website!</p>
     </article>
 
-    <!-- QR Code Library - Deferred (only needed after link generation) -->
-    <script defer src="https://cdn.jsdelivr.net/npm/qrious@4.0.2/dist/qrious.min.js"></script>
+    <!-- QR Code Library -->
+    <script src="https://cdn.jsdelivr.net/npm/qrious@4.0.2/dist/qrious.min.js"></script>
     
-    <!-- Firebase SDK - Deferred (tracking can start slightly later) -->
-    <script defer src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
-    <script defer src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
     
     <!-- Firebase Configuration -->
     <script>
@@ -1114,6 +1439,6 @@
         }
     </script>
     
-    <script src="script.js?v=11"></script>
+    <script src="script.js?v=13"></script>
 </body>
 </html>
