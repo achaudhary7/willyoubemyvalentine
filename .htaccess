@@ -37,9 +37,9 @@ AddDefaultCharset UTF-8
         Header set Pragma "no-cache"
         Header set Expires "0"
     </FilesMatch>
-    # CSS/JS use version query params for cache busting, so can cache longer
+    # CSS/JS use version query params for cache busting
     <FilesMatch "\.(css|js)$">
-        Header set Cache-Control "public, max-age=86400"
+        Header set Cache-Control "public, max-age=3600"
     </FilesMatch>
 </IfModule>
 
