@@ -1,36 +1,24 @@
 # Set index.html as the default file
 DirectoryIndex index.html index.htm index.php
 
-# Proper MIME types for XML files (fixes sitemap issues)
-<IfModule mod_mime.c>
-    AddType application/xml .xml
-    AddType text/xml .xml
-    AddType text/plain .txt
-</IfModule>
+# Proper MIME types for XML and TXT files (critical for sitemaps)
+AddType application/xml .xml
+AddType text/plain .txt
 
-# Ensure sitemaps are accessible to all bots
-<Files ~ "sitemap.*\.(xml|txt)$">
-    <IfModule mod_headers.c>
-        Header set X-Robots-Tag "noindex"
-        Header set Cache-Control "no-cache, no-store, must-revalidate"
-    </IfModule>
-</Files>
+# Force UTF-8 encoding
+AddDefaultCharset UTF-8
+
+# Ensure XML files are served with correct charset
+<FilesMatch "\.xml$">
+    Header set Content-Type "application/xml; charset=UTF-8"
+</FilesMatch>
 
 # Enable GZIP compression for better performance
 <IfModule mod_deflate.c>
-    AddOutputFilterByType DEFLATE text/html text/css text/javascript application/javascript application/xml text/xml
+    AddOutputFilterByType DEFLATE text/html text/css text/javascript application/javascript application/xml text/xml text/plain
 </IfModule>
 
-# Prevent caching for development (remove in production)
-<IfModule mod_headers.c>
-    <FilesMatch "\.(html|css|js)$">
-        Header set Cache-Control "no-cache, no-store, must-revalidate"
-        Header set Pragma "no-cache"
-        Header set Expires 0
-    </FilesMatch>
-</IfModule>
-
-# Cache images
+# Cache static assets
 <IfModule mod_expires.c>
     ExpiresActive On
     ExpiresByType image/svg+xml "access plus 1 month"
@@ -38,10 +26,19 @@ DirectoryIndex index.html index.htm index.php
     ExpiresByType image/jpg "access plus 1 month"
     ExpiresByType image/jpeg "access plus 1 month"
     ExpiresByType image/gif "access plus 1 month"
+    ExpiresByType image/x-icon "access plus 1 month"
+    ExpiresByType image/vnd.microsoft.icon "access plus 1 month"
+</IfModule>
+
+# Cache control for HTML/CSS/JS (short cache for updates)
+<IfModule mod_headers.c>
+    <FilesMatch "\.(html|css|js)$">
+        Header set Cache-Control "public, max-age=3600"
+    </FilesMatch>
 </IfModule>
 
 # Prevent directory browsing
 Options -Indexes
 
-# UTF-8 encoding
-AddDefaultCharset UTF-8
+# Handle errors gracefully
+ErrorDocument 404 /index.html

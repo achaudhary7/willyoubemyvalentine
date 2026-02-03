@@ -294,6 +294,13 @@ function shareTelegram() {
     window.open(`https://t.me/share/url?url=${encodeURIComponent(link)}&text=${encodeURIComponent(message)}`, '_blank');
 }
 
+function shareEmail() {
+    const link = document.getElementById('generatedLink').value;
+    const subject = `Will You Be My Valentine? 💕`;
+    const body = `Hey!\n\nI have a special Valentine's Day surprise for you! 💕\n\nClick this link to see it:\n${link}\n\nCan't wait for your answer! 💝`;
+    window.location.href = `mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+}
+
 // ============================================================================
 // SHARE SITE FUNCTIONALITY (Home Screen)
 // ============================================================================

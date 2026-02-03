@@ -148,6 +148,24 @@ body {
     text-shadow: 2px 2px 4px rgba(233, 30, 99, 0.2);
 }
 
+.year-badge {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--primary-pink), var(--deep-pink));
+    color: white;
+    padding: 6px 18px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 12px;
+    box-shadow: 0 3px 12px rgba(255, 107, 157, 0.4);
+    animation: gentle-glow 2s ease-in-out infinite;
+}
+
+@keyframes gentle-glow {
+    0%, 100% { box-shadow: 0 3px 12px rgba(255, 107, 157, 0.4); }
+    50% { box-shadow: 0 3px 20px rgba(255, 107, 157, 0.6); }
+}
+
 .subtitle {
     font-size: 1.1rem;
     color: var(--text-light);
@@ -405,6 +423,10 @@ body {
 
 .share-btn.telegram {
     background: #0088cc;
+}
+
+.share-btn.email {
+    background: linear-gradient(135deg, #ea4335, #c62828);
 }
 
 .share-btn:hover {
@@ -1204,6 +1226,25 @@ body {
 
 .trust-badges.compact .trust-icon {
     font-size: 0.85rem;
+}
+
+/* E-Card Link */
+.ecard-link {
+    display: inline-block;
+    margin-top: 12px;
+    color: var(--primary-pink);
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 500;
+    padding: 8px 16px;
+    border-radius: 20px;
+    background: rgba(255, 107, 157, 0.1);
+    transition: all 0.3s ease;
+}
+
+.ecard-link:hover {
+    background: rgba(255, 107, 157, 0.2);
+    transform: translateY(-2px);
 }
 
 /* Share Site Section */

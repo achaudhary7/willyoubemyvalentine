@@ -40,11 +40,17 @@ const config = {
         'sitemap_index.xml',
         'sitemap.txt',
         'robots.txt',
-        'manifest.json',
         
-        // Favicons & Images
+        // Images (legacy)
         'favicon.svg',
         'og-image.svg'
+    ],
+    
+    // Folders to deploy (entire folder contents)
+    foldersToDeploy: [
+        'Favicon',
+        'articles',
+        'ecard'
     ]
 };
 
@@ -133,6 +139,65 @@ function validateFiles() {
     return validFiles;
 }
 
+function validateFolders() {
+    log('\n📁 Validating folders to deploy...', 'magenta');
+    
+    const validFolders = [];
+    const missingFolders = [];
+    
+    for (const folder of config.foldersToDeploy) {
+        const localPath = path.join(__dirname, folder);
+        
+        if (fs.existsSync(localPath) && fs.statSync(localPath).isDirectory()) {
+            const files = getAllFilesInFolder(localPath, folder);
+            validFolders.push({
+                name: folder,
+                localPath: localPath,
+                files: files
+            });
+            logVerbose(`Found folder: ${folder} (${files.length} files)`);
+        } else {
+            missingFolders.push(folder);
+            logWarning(`Missing folder: ${folder}`);
+        }
+    }
+    
+    if (missingFolders.length > 0) {
+        logWarning(`${missingFolders.length} folder(s) not found (will be skipped)`);
+    }
+    
+    if (validFolders.length > 0) {
+        const totalFiles = validFolders.reduce((sum, f) => sum + f.files.length, 0);
+        logSuccess(`${validFolders.length} folder(s) validated (${totalFiles} files total)`);
+    }
+    
+    return validFolders;
+}
+
+function getAllFilesInFolder(folderPath, relativePath) {
+    const files = [];
+    const items = fs.readdirSync(folderPath);
+    
+    for (const item of items) {
+        const itemPath = path.join(folderPath, item);
+        const itemRelativePath = path.join(relativePath, item).replace(/\\/g, '/');
+        const stats = fs.statSync(itemPath);
+        
+        if (stats.isDirectory()) {
+            // Recursively get files from subdirectories
+            files.push(...getAllFilesInFolder(itemPath, itemRelativePath));
+        } else {
+            files.push({
+                name: itemRelativePath,
+                localPath: itemPath,
+                size: stats.size
+            });
+        }
+    }
+    
+    return files;
+}
+
 function formatBytes(bytes) {
     if (bytes === 0) return '0 Bytes';
     const k = 1024;
@@ -161,10 +226,26 @@ async function deploy() {
         process.exit(1);
     }
     
+    // Validate folders
+    const folders = validateFolders();
+    
+    // Collect all files from folders
+    const folderFiles = [];
+    for (const folder of folders) {
+        folderFiles.push(...folder.files);
+    }
+    
+    // Combine all files
+    const allFiles = [...files, ...folderFiles];
+    
     if (isDryRun) {
         log('\n📋 Files that would be deployed:', 'cyan');
         files.forEach(f => log(`   • ${f.name} (${formatBytes(f.size)})`));
-        log('\n✓ Dry run complete. No files were uploaded.', 'green');
+        if (folderFiles.length > 0) {
+            log('\n📁 Folder files that would be deployed:', 'cyan');
+            folderFiles.forEach(f => log(`   • ${f.name} (${formatBytes(f.size)})`));
+        }
+        log(`\n✓ Dry run complete. ${allFiles.length} files would be uploaded.`, 'green');
         return;
     }
     
@@ -206,8 +287,8 @@ async function deploy() {
             logVerbose('No default.php to remove (this is fine)');
         }
         
-        // Upload files
-        log('\n📤 Uploading files...', 'cyan');
+        // Upload root files
+        log('\n📤 Uploading root files...', 'cyan');
         
         let uploadedCount = 0;
         let failedCount = 0;
@@ -224,6 +305,38 @@ async function deploy() {
             } catch (uploadError) {
                 failedCount++;
                 logError(`Failed: ${file.name} - ${uploadError.message}`);
+            }
+        }
+        
+        // Upload folder contents
+        if (folderFiles.length > 0) {
+            log('\n📁 Uploading folder contents...', 'cyan');
+            
+            // Track created directories to avoid redundant operations
+            const createdDirs = new Set();
+            
+            for (const file of folderFiles) {
+                try {
+                    // Ensure the directory exists
+                    const dirPath = path.dirname(file.name).replace(/\\/g, '/');
+                    if (dirPath && dirPath !== '.' && !createdDirs.has(dirPath)) {
+                        await client.ensureDir('/' + dirPath);
+                        await client.cd('/');
+                        createdDirs.add(dirPath);
+                        logVerbose(`Created directory: ${dirPath}`);
+                    }
+                    
+                    const remotePath = file.name;
+                    logVerbose(`Uploading: ${file.name} → ${remotePath}`);
+                    
+                    await client.uploadFrom(file.localPath, remotePath);
+                    uploadedCount++;
+                    logSuccess(`Uploaded: ${file.name}`);
+                    
+                } catch (uploadError) {
+                    failedCount++;
+                    logError(`Failed: ${file.name} - ${uploadError.message}`);
+                }
             }
         }
         

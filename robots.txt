@@ -16,7 +16,5 @@ Allow: /
 User-agent: LinkedInBot
 Allow: /
 
-# Sitemap locations (multiple formats for better compatibility)
+# Sitemap location
 Sitemap: https://willyoubemyvalentine.fun/sitemap.xml
-Sitemap: https://willyoubemyvalentine.fun/sitemap_index.xml
-Sitemap: https://willyoubemyvalentine.fun/sitemap.txt

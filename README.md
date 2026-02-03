@@ -7,6 +7,7 @@ A beautiful, interactive Valentine's Day surprise generator with a playful twist
 
 ## ✨ Features
 
+### 💝 Valentine Link Generator
 - **Personalized Valentine Links** - Generate unique links with your name
 - **Playful Yes/No Game** - The "No" button runs away when clicked! 😄
 - **Beautiful Animations** - Fireworks & hearts celebration when they say Yes
@@ -14,8 +15,17 @@ A beautiful, interactive Valentine's Day surprise generator with a playful twist
 - **Mobile Responsive** - Works perfectly on all devices
 - **100% Free & Safe** - No signup, no ads, no data collection
 
+### 💌 E-Card Generator (NEW!)
+- **Digital Valentine Cards** - Create beautiful animated e-cards
+- **Envelope Animation** - Stunning envelope opening effect
+- **4 Romantic Themes** - Classic Red, Roses, Cute, Purple
+- **Custom Messages** - Add your own heartfelt love notes
+- **Share Anywhere** - WhatsApp, Email, SMS, or copy link
+- **Track Responses** - Know when they open and respond
+
 ## 🎮 How It Works
 
+### Valentine Link
 1. **Enter your name** to create a personalized Valentine
 2. **Get two links:**
    - 💕 **Valentine Link** - Share this with your special someone
@@ -23,26 +33,46 @@ A beautiful, interactive Valentine's Day surprise generator with a playful twist
 3. **They open the link** and see "Will You Be My Valentine?"
 4. **The No button escapes** when they try to click it!
 5. **When they click Yes** - Fireworks celebrate the moment! 🎆
-6. **Check your dashboard** to see their response in real-time
+
+### E-Card
+1. **Enter both names** (yours and theirs)
+2. **Choose a theme** from 4 beautiful options
+3. **Add a custom message** or use our romantic defaults
+4. **Share the link** via WhatsApp, Email, or SMS
+5. **Watch them open** the animated envelope!
 
 ## 🛠️ Tech Stack
 
 - **Frontend:** HTML5, CSS3, Vanilla JavaScript
 - **Backend:** Firebase Realtime Database (for tracking)
 - **Hosting:** Hostinger
+- **Analytics:** Google Analytics
 - **Fonts:** Google Fonts (Dancing Script, Poppins)
 
 ## 📁 Project Structure
 
 ```
 Valentine/
-├── index.html          # Main HTML file
-├── styles.css          # All styling and animations
-├── script.js           # Interactive functionality
+├── index.html          # Main homepage with link generator
+├── styles.css          # All styling and animations (2100+ lines)
+├── script.js           # Interactive functionality (900+ lines)
+├── ecard/
+│   └── index.html      # E-Card generator (standalone)
+├── articles/           # SEO content hub
+│   ├── index.html      # Articles listing page
+│   ├── how-to-create-valentine-link/
+│   ├── is-valentine-link-safe/
+│   ├── best-free-valentine-websites/
+│   ├── share-valentine-link-guide/
+│   ├── valentine-week-2026/
+│   ├── cute-will-you-be-my-valentine-ideas/
+│   └── will-you-be-my-valentine-digital-card/
+├── Favicon/            # Complete favicon set (all sizes)
 ├── favicon.svg         # Site favicon
 ├── og-image.svg        # Social media preview image
 ├── manifest.json       # PWA manifest
 ├── sitemap.xml         # SEO sitemap
+├── sitemap_index.xml   # Sitemap index
 ├── robots.txt          # Search engine directives
 ├── .htaccess           # Apache server config
 ├── deploy.js           # FTP deployment script
@@ -60,7 +90,7 @@ npm run deploy
 ### Firebase Setup (for tracking)
 1. Create a Firebase project
 2. Enable Realtime Database
-3. Update the config in `index.html`
+3. Update the config in `index.html` and `ecard/index.html`
 
 ## 🔒 Privacy
 
@@ -69,12 +99,15 @@ npm run deploy
 - No signup required
 - Links only contain sender's name
 - Completely safe and legitimate
+- Open source - view all the code!
 
-## 📱 Screenshots
+## 📱 Pages
 
-| Home Screen | Link Generated | Valentine Question | Success! |
-|-------------|----------------|-------------------|----------|
-| Create your Valentine | Get shareable links | The cute question | Celebration! |
+| Page | URL | Description |
+|------|-----|-------------|
+| Home | [/](https://willyoubemyvalentine.fun/) | Valentine link generator |
+| E-Card | [/ecard/](https://willyoubemyvalentine.fun/ecard/) | Digital card generator |
+| Articles | [/articles/](https://willyoubemyvalentine.fun/articles/) | Guides & tips |
 
 ## 💖 Made with Love
 
