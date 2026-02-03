@@ -30,10 +30,16 @@ AddDefaultCharset UTF-8
     ExpiresByType image/vnd.microsoft.icon "access plus 1 month"
 </IfModule>
 
-# Cache control for HTML/CSS/JS (short cache for updates)
+# Cache control for HTML (no cache - always fresh)
 <IfModule mod_headers.c>
-    <FilesMatch "\.(html|css|js)$">
-        Header set Cache-Control "public, max-age=3600"
+    <FilesMatch "\.html$">
+        Header set Cache-Control "no-cache, no-store, must-revalidate"
+        Header set Pragma "no-cache"
+        Header set Expires "0"
+    </FilesMatch>
+    # CSS/JS use version query params for cache busting, so can cache longer
+    <FilesMatch "\.(css|js)$">
+        Header set Cache-Control "public, max-age=86400"
     </FilesMatch>
 </IfModule>
 
