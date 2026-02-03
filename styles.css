@@ -1228,6 +1228,289 @@ body {
     font-size: 0.85rem;
 }
 
+/* ============================================================================
+   COUNTDOWN TIMER
+   ============================================================================ */
+
+.countdown-timer {
+    background: linear-gradient(135deg, rgba(255, 107, 157, 0.15), rgba(233, 30, 99, 0.1));
+    border: 1px solid rgba(255, 107, 157, 0.3);
+    border-radius: 16px;
+    padding: 10px 16px;
+    display: inline-block;
+}
+
+.countdown-label {
+    font-size: 0.75rem;
+    color: var(--deep-pink);
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+.countdown-display {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+}
+
+.countdown-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: white;
+    padding: 6px 10px;
+    border-radius: 10px;
+    min-width: 42px;
+    box-shadow: 0 2px 8px rgba(255, 107, 157, 0.15);
+}
+
+.countdown-item span {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--deep-pink);
+    line-height: 1;
+}
+
+.countdown-item small {
+    font-size: 0.6rem;
+    color: var(--text-light);
+    text-transform: uppercase;
+    margin-top: 2px;
+}
+
+/* Countdown finished state */
+.countdown-timer.finished .countdown-label {
+    font-size: 0.9rem;
+}
+
+.countdown-timer.finished .countdown-display {
+    display: none;
+}
+
+/* ============================================================================
+   LIVE COUNTER
+   ============================================================================ */
+
+.live-counter {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: linear-gradient(135deg, #fff5f7, #ffe8ee);
+    border: 1px solid rgba(255, 107, 157, 0.25);
+    padding: 8px 16px;
+    border-radius: 25px;
+    font-size: 0.85rem;
+    color: var(--text-dark);
+    animation: pulse-soft 2s infinite ease-in-out;
+}
+
+.live-counter .counter-icon {
+    font-size: 1rem;
+    animation: heartbeat 1.5s infinite;
+}
+
+.live-counter .counter-text {
+    font-weight: 500;
+}
+
+.live-counter #valentineCount {
+    font-weight: 700;
+    color: var(--deep-pink);
+}
+
+@keyframes pulse-soft {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.02); }
+}
+
+@keyframes heartbeat {
+    0%, 100% { transform: scale(1); }
+    25% { transform: scale(1.1); }
+    50% { transform: scale(1); }
+    75% { transform: scale(1.15); }
+}
+
+/* Mobile responsive */
+@media (max-width: 400px) {
+    .countdown-item {
+        padding: 4px 6px;
+        min-width: 36px;
+    }
+    
+    .countdown-item span {
+        font-size: 1rem;
+    }
+    
+    .live-counter {
+        font-size: 0.8rem;
+        padding: 6px 12px;
+    }
+}
+
+/* ============================================================================
+   TESTIMONIALS SECTION
+   ============================================================================ */
+
+.testimonials-mini {
+    width: 100%;
+    max-width: 320px;
+    margin: 0 auto 6px;
+    position: relative;
+    min-height: 60px;
+}
+
+.testimonial-card {
+    display: none;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(255, 240, 245, 0.95));
+    border: 1px solid rgba(255, 107, 157, 0.2);
+    border-radius: 12px;
+    padding: 10px 14px;
+    text-align: center;
+    animation: fadeIn 0.5s ease;
+}
+
+.testimonial-card.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.testimonial-quote {
+    display: block;
+    font-size: 0.85rem;
+    color: var(--text-dark);
+    font-style: italic;
+    line-height: 1.4;
+    margin-bottom: 6px;
+}
+
+.testimonial-author {
+    display: block;
+    font-size: 0.75rem;
+    color: var(--primary-pink);
+    font-weight: 600;
+}
+
+.testimonial-dots {
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+    margin-top: 4px;
+}
+
+.testimonial-dots .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(255, 107, 157, 0.3);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.testimonial-dots .dot.active {
+    background: var(--primary-pink);
+    transform: scale(1.2);
+}
+
+.testimonial-dots .dot:hover {
+    background: var(--primary-pink);
+}
+
+/* ============================================================================
+   QR CODE SECTION
+   ============================================================================ */
+
+.qr-section {
+    margin: 15px 0;
+    border: 1px solid rgba(255, 107, 157, 0.2);
+    border-radius: 12px;
+    overflow: hidden;
+    background: linear-gradient(135deg, #fff5f7, #fff);
+}
+
+.qr-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 16px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.qr-header:hover {
+    background: rgba(255, 107, 157, 0.05);
+}
+
+.qr-toggle-icon {
+    font-size: 1.2rem;
+}
+
+.qr-toggle-text {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-dark);
+}
+
+.qr-arrow {
+    font-size: 0.7rem;
+    color: var(--text-light);
+    transition: transform 0.3s ease;
+}
+
+.qr-section.open .qr-arrow {
+    transform: rotate(180deg);
+}
+
+.qr-content {
+    padding: 0 16px 16px;
+    text-align: center;
+    animation: slideDown 0.3s ease;
+}
+
+@keyframes slideDown {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.qr-code-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+
+.qr-code-container canvas {
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.qr-hint {
+    font-size: 0.75rem;
+    color: var(--text-light);
+    margin-bottom: 10px;
+}
+
+.btn-qr-download {
+    background: linear-gradient(135deg, var(--primary-pink), var(--deep-pink));
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 25px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(255, 107, 157, 0.3);
+}
+
+.btn-qr-download:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 107, 157, 0.4);
+}
+
 /* E-Card Link */
 .ecard-link {
     display: inline-block;

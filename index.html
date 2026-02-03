@@ -38,7 +38,7 @@
     <meta property="og:site_name" content="Will You Be My Valentine? - Free & Safe Link Generator">
     <meta property="og:title" content="Will You Be My Valentine? 💕 Free Link Generator | Yes or No Website">
     <meta property="og:description" content="Free valentine link generator! Create a yes or no website link in seconds. Share via WhatsApp or email. 100% safe, NOT a scam - trusted valentine's day yes or no website!">
-    <meta property="og:image" content="https://willyoubemyvalentine.fun/og-image.svg">
+    <meta property="og:image" content="https://willyoubemyvalentine.fun/og-image.jpeg">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta property="og:image:alt" content="Will You Be My Valentine - Romantic Valentine's Day Surprise Generator">
@@ -49,7 +49,7 @@
     <meta name="twitter:url" content="https://willyoubemyvalentine.fun/">
     <meta name="twitter:title" content="Will You Be My Valentine? 💕 Free Link Generator | Yes or No Website">
     <meta name="twitter:description" content="Free valentine link generator! Create yes or no website links instantly. Share via WhatsApp or email. 100% safe, NOT a scam link!">
-    <meta name="twitter:image" content="https://willyoubemyvalentine.fun/og-image.svg">
+    <meta name="twitter:image" content="https://willyoubemyvalentine.fun/og-image.jpeg">
     <meta name="twitter:image:alt" content="Will You Be My Valentine - Safe Free Valentine Website Yes or No Game">
     
     <!-- Favicons (Complete set for all browsers and devices) -->
@@ -203,6 +203,62 @@
                     "@type": "Answer",
                     "text": "Absolutely! Our valentine website code is free to use. Check out our GitHub repository to clone the code and create your own personalized version. It's a great valentine proposal github project for developers!"
                 }
+            },
+            {
+                "@type": "Question",
+                "name": "How do I ask my girlfriend to be my valentine online?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Simply enter your name, generate your personalized valentine link, and send it to her via WhatsApp, text, or any messaging app! The interactive yes/no game makes asking your girlfriend to be your valentine fun and memorable."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Can I use this for long distance relationships?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Absolutely! This is perfect for long distance valentine surprises. Send the link via WhatsApp, email, or any messenger - distance doesn't matter! Many couples in long distance relationships use our valentine link generator."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "What are cute ways to ask someone to be my valentine?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Our website offers one of the cutest ways to ask will you be my valentine! The playful yes/no game with the escaping No button makes it fun and impossible to refuse. Pair it with a romantic message for extra cuteness!"
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Is there a funny valentine yes or no game?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Yes! Our valentine yes no game is designed to be fun and funny. When your valentine tries to click No, the button playfully escapes and moves around the screen! It's a hilarious way to guarantee a Yes."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "How do I create a personalized valentine message?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Enter your name when creating the link - your valentine will see 'From [Your Name]' on the surprise page! For even more personalization, try our Valentine E-Card Generator which lets you add custom messages and choose envelope colors."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Can I send this as a valentine surprise to my crush?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Definitely! This is a perfect way to ask your crush to be your valentine. The playful game takes the pressure off and makes it fun. The No button escaping adds humor and breaks the ice!"
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "What's the best time to send a valentine proposal link?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "You can send your valentine link anytime during Valentine Week 2026 (Feb 7-14)! Popular times include Rose Day (Feb 7), Propose Day (Feb 8), or Valentine's Day itself (Feb 14). Some people even send it at midnight on Feb 14!"
+                }
             }
         ]
     }
@@ -246,7 +302,7 @@
             "availability": "https://schema.org/InStock",
             "url": "https://willyoubemyvalentine.fun/"
         },
-        "image": "https://willyoubemyvalentine.fun/og-image.svg"
+        "image": "https://willyoubemyvalentine.fun/og-image.jpeg"
     }
     </script>
     
@@ -268,14 +324,32 @@
             <div class="intro-content" style="padding-top: 8px;">
                 <div class="heart-icon pulse" style="font-size: 50px; margin-bottom: 8px;">💝</div>
                 <span class="year-badge" style="margin-bottom: 6px; padding: 4px 14px; font-size: 0.75rem;">Valentine's Day 2026</span>
+                
+                <!-- Countdown Timer -->
+                <div class="countdown-timer" id="countdownTimer" style="margin: 4px 0;">
+                    <div class="countdown-label">⏰ Valentine's Day in</div>
+                    <div class="countdown-display" id="countdownDisplay">
+                        <div class="countdown-item"><span id="countDays">--</span><small>days</small></div>
+                        <div class="countdown-item"><span id="countHours">--</span><small>hrs</small></div>
+                        <div class="countdown-item"><span id="countMins">--</span><small>min</small></div>
+                        <div class="countdown-item"><span id="countSecs">--</span><small>sec</small></div>
+                    </div>
+                </div>
+                
                 <h1 class="title" style="font-size: 2rem; margin-bottom: 6px;">Will You Be My Valentine?</h1>
-                <p class="subtitle" style="font-size: 1.2rem; margin-bottom: 14px; line-height: 1.6;">
+                <p class="subtitle" style="font-size: 1.2rem; margin-bottom: 10px; line-height: 1.6;">
                     Free Valentine Digital Card & E-Card Generator! 
                     The cutest way to ask "Will U Be My Valentine?" with a fun yes or no game.
                 </p>
                 
+                <!-- Live Counter -->
+                <div class="live-counter" id="liveCounter" style="margin-bottom: 8px;">
+                    <span class="counter-icon">💕</span>
+                    <span class="counter-text"><span id="valentineCount">--</span> Valentines sent!</span>
+                </div>
+                
                 <!-- Trust Badges Section - Compact -->
-                <div class="trust-badges compact" style="margin-bottom: 12px;">
+                <div class="trust-badges compact" style="margin-bottom: 6px;">
                     <div class="trust-badge">
                         <span class="trust-icon">🔒</span>
                         <span>Safe</span>
@@ -294,7 +368,33 @@
                     </div>
                 </div>
                 
-                <button class="btn btn-primary" onclick="showNameInput()" aria-label="Get started creating your Valentine surprise" style="margin-bottom: 8px; padding: 12px 28px;">
+                <!-- Testimonials Section -->
+                <div class="testimonials-mini" id="testimonialsMini">
+                    <div class="testimonial-card active" id="testimonial1">
+                        <span class="testimonial-quote">"She said YES before I could blink! 😍"</span>
+                        <span class="testimonial-author">— Mike & Sarah</span>
+                    </div>
+                    <div class="testimonial-card" id="testimonial2">
+                        <span class="testimonial-quote">"The runaway No button made us laugh so much! 💕"</span>
+                        <span class="testimonial-author">— Alex & Jordan</span>
+                    </div>
+                    <div class="testimonial-card" id="testimonial3">
+                        <span class="testimonial-quote">"Best Valentine surprise ever! Now we're engaged! 💍"</span>
+                        <span class="testimonial-author">— Chris & Taylor</span>
+                    </div>
+                    <div class="testimonial-card" id="testimonial4">
+                        <span class="testimonial-quote">"Simple, cute, and it worked perfectly! 🌹"</span>
+                        <span class="testimonial-author">— David & Emma</span>
+                    </div>
+                    <div class="testimonial-dots">
+                        <span class="dot active" onclick="showTestimonial(0)"></span>
+                        <span class="dot" onclick="showTestimonial(1)"></span>
+                        <span class="dot" onclick="showTestimonial(2)"></span>
+                        <span class="dot" onclick="showTestimonial(3)"></span>
+                    </div>
+                </div>
+                
+                <button class="btn btn-primary" onclick="showNameInput()" aria-label="Get started creating your Valentine surprise" style="margin-bottom: 6px; padding: 12px 28px;">
                     <span>Create Valentine Link</span>
                     <span class="btn-arrow" aria-hidden="true">→</span>
                 </button>
@@ -304,7 +404,7 @@
                 </a>
                 
                 <!-- Share This Site Button -->
-                <div class="share-site-section" style="margin-top: 6px;">
+                <div class="share-site-section" style="margin-top: 4px;">
                     <button class="share-site-btn" onclick="toggleShareMenu()" aria-label="Share this website">
                         <span class="share-icon">📤</span>
                         <span>Share This Site</span>
@@ -325,7 +425,7 @@
                     </div>
                 </div>
                 
-                <p class="scroll-hint" onclick="scrollToInfo()" style="margin-top: 8px; font-size: 0.85rem;">↓ Learn More</p>
+                <p class="scroll-hint" onclick="scrollToInfo()" style="margin-top: 4px; font-size: 0.85rem;">↓ Learn More</p>
             </div>
             
             <!-- Info Sections - Scrollable Content Below -->
@@ -506,6 +606,69 @@
                                 <p>Absolutely! Our valentine website code is free to use. Check out our GitHub repository to clone the code and create your own personalized version. It's a great valentine proposal github project for developers!</p>
                             </div>
                         </div>
+                        <div class="faq-item" onclick="toggleFaq(this)">
+                            <div class="faq-question">
+                                <span>How do I ask my girlfriend to be my valentine online?</span>
+                                <span class="faq-toggle">+</span>
+                            </div>
+                            <div class="faq-answer">
+                                <p>Simply enter your name, generate your personalized valentine link, and send it to her via WhatsApp, text, or any messaging app! The interactive yes/no game makes asking your girlfriend to be your valentine fun and memorable. Perfect for surprising her with a digital valentine proposal!</p>
+                            </div>
+                        </div>
+                        <div class="faq-item" onclick="toggleFaq(this)">
+                            <div class="faq-question">
+                                <span>Can I use this for long distance relationships?</span>
+                                <span class="faq-toggle">+</span>
+                            </div>
+                            <div class="faq-answer">
+                                <p>Absolutely! This is perfect for long distance valentine surprises. Send the link via WhatsApp, email, or any messenger - distance doesn't matter! Many couples in long distance relationships use our valentine link generator to bridge the gap on Valentine's Day 2026.</p>
+                            </div>
+                        </div>
+                        <div class="faq-item" onclick="toggleFaq(this)">
+                            <div class="faq-question">
+                                <span>What are cute ways to ask someone to be my valentine?</span>
+                                <span class="faq-toggle">+</span>
+                            </div>
+                            <div class="faq-answer">
+                                <p>Our website offers one of the cutest ways to ask will you be my valentine! The playful yes/no game with the escaping No button makes it fun and impossible to refuse. Pair it with a romantic message or send it as a surprise during Valentine Week 2026 for extra cuteness!</p>
+                            </div>
+                        </div>
+                        <div class="faq-item" onclick="toggleFaq(this)">
+                            <div class="faq-question">
+                                <span>Is there a funny valentine yes or no game?</span>
+                                <span class="faq-toggle">+</span>
+                            </div>
+                            <div class="faq-answer">
+                                <p>Yes! Our valentine yes no game is designed to be fun and funny. When your valentine tries to click "No", the button playfully escapes and moves around the screen! It's a hilarious way to guarantee a "Yes" and create a memorable Valentine's Day moment together.</p>
+                            </div>
+                        </div>
+                        <div class="faq-item" onclick="toggleFaq(this)">
+                            <div class="faq-question">
+                                <span>How do I create a personalized valentine message?</span>
+                                <span class="faq-toggle">+</span>
+                            </div>
+                            <div class="faq-answer">
+                                <p>Enter your name when creating the link - your valentine will see "From [Your Name]" on the surprise page! For even more personalization, try our Valentine E-Card Generator which lets you add custom messages, choose envelope colors, and create beautiful digital valentine cards.</p>
+                            </div>
+                        </div>
+                        <div class="faq-item" onclick="toggleFaq(this)">
+                            <div class="faq-question">
+                                <span>Can I send this as a valentine surprise to my crush?</span>
+                                <span class="faq-toggle">+</span>
+                            </div>
+                            <div class="faq-answer">
+                                <p>Definitely! This is a perfect way to ask your crush to be your valentine. The playful game takes the pressure off and makes it fun. Many people use our valentine link to confess their feelings on Valentine's Day - the No button escaping adds humor and breaks the ice!</p>
+                            </div>
+                        </div>
+                        <div class="faq-item" onclick="toggleFaq(this)">
+                            <div class="faq-question">
+                                <span>What's the best time to send a valentine proposal link?</span>
+                                <span class="faq-toggle">+</span>
+                            </div>
+                            <div class="faq-answer">
+                                <p>You can send your valentine link anytime during Valentine Week 2026 (Feb 7-14)! Popular times include Rose Day (Feb 7), Propose Day (Feb 8), or Valentine's Day itself (Feb 14). Some people even send it at midnight on Feb 14 for a romantic surprise!</p>
+                            </div>
+                        </div>
                     </div>
                 </section>
                 
@@ -683,6 +846,24 @@
                         </button>
                     </div>
                     <p class="tracking-hint">🔔 Use this link to see when they open your Valentine & say Yes!</p>
+                </div>
+                
+                <!-- QR Code Section -->
+                <div class="qr-section" id="qrSection">
+                    <div class="qr-header" onclick="toggleQrSection()">
+                        <span class="qr-toggle-icon" id="qrToggleIcon">📱</span>
+                        <span class="qr-toggle-text">Get QR Code for Printed Cards</span>
+                        <span class="qr-arrow" id="qrArrow">▼</span>
+                    </div>
+                    <div class="qr-content" id="qrContent" style="display: none;">
+                        <div class="qr-code-container">
+                            <canvas id="qrCanvas"></canvas>
+                        </div>
+                        <p class="qr-hint">Perfect for in-person surprises & printed cards!</p>
+                        <button class="btn btn-qr-download" onclick="downloadQRCode()">
+                            <span>📥 Download QR Code</span>
+                        </button>
+                    </div>
                 </div>
                 
                 <div class="link-actions">
@@ -887,6 +1068,9 @@
         <p><strong>Valentine's Day 2026</strong> - Make it special with a safe, free, personalized valentine surprise at willyoubemyvalentine.fun - the trusted will you be my valentine website!</p>
     </article>
 
+    <!-- QR Code Library -->
+    <script src="https://cdn.jsdelivr.net/npm/qrious@4.0.2/dist/qrious.min.js"></script>
+    
     <!-- Firebase SDK -->
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
@@ -921,6 +1105,6 @@
         }
     </script>
     
-    <script src="script.js?v=9"></script>
+    <script src="script.js?v=10"></script>
 </body>
 </html>

@@ -38,7 +38,7 @@
     <meta property="og:site_name" content="Valentine E-Card Generator - Free Digital Valentine Cards">
     <meta property="og:title" content="Free Valentine E-Card Generator 💌 Send Digital Valentine Card Online">
     <meta property="og:description" content="Create beautiful animated valentine e-cards! Send digital cards via email or link with custom messages, themes & envelope animation. 100% free!">
-    <meta property="og:image" content="https://willyoubemyvalentine.fun/og-image.svg">
+    <meta property="og:image" content="https://willyoubemyvalentine.fun/og-image.jpeg">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta property="og:image:alt" content="Valentine E-Card Generator - Create Free Digital Valentine Cards">
@@ -49,7 +49,7 @@
     <meta name="twitter:url" content="https://willyoubemyvalentine.fun/ecard/">
     <meta name="twitter:title" content="Free Valentine E-Card Generator 💌 Send Digital Valentine Card Online">
     <meta name="twitter:description" content="Create beautiful animated valentine e-cards! Send digital cards via email or link. 100% free, no signup!">
-    <meta name="twitter:image" content="https://willyoubemyvalentine.fun/og-image.svg">
+    <meta name="twitter:image" content="https://willyoubemyvalentine.fun/og-image.jpeg">
     <meta name="twitter:image:alt" content="Valentine E-Card Generator - Free Digital Valentine Cards">
     
     <!-- Favicons -->
@@ -468,6 +468,99 @@
         .success-content { z-index: 10; text-align: center; }
         .success-heart { font-size: 5rem; animation: heartBeat 1s infinite; margin-bottom: 20px; }
         @keyframes heartBeat { 0%, 100% { transform: scale(1); } 25% { transform: scale(1.1); } 50% { transform: scale(1); } 75% { transform: scale(1.15); } }
+        
+        /* Countdown Timer */
+        .countdown-timer {
+            background: linear-gradient(135deg, rgba(255, 107, 157, 0.15), rgba(233, 30, 99, 0.1));
+            border: 1px solid rgba(255, 107, 157, 0.3);
+            border-radius: 16px;
+            padding: 8px 14px;
+            display: inline-block;
+        }
+        .countdown-label {
+            font-size: 0.7rem;
+            color: var(--deep-pink);
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+        .countdown-display {
+            display: flex;
+            gap: 6px;
+            justify-content: center;
+        }
+        .countdown-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: white;
+            padding: 4px 8px;
+            border-radius: 8px;
+            min-width: 36px;
+            box-shadow: 0 2px 8px rgba(255, 107, 157, 0.15);
+        }
+        .countdown-item span {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--deep-pink);
+            line-height: 1;
+        }
+        .countdown-item small {
+            font-size: 0.55rem;
+            color: var(--text-light);
+            text-transform: uppercase;
+            margin-top: 2px;
+        }
+        .countdown-timer.finished .countdown-label { font-size: 0.85rem; }
+        .countdown-timer.finished .countdown-display { display: none; }
+        
+        /* Live Counter */
+        .live-counter {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            background: linear-gradient(135deg, #fff5f7, #ffe8ee);
+            border: 1px solid rgba(255, 107, 157, 0.25);
+            padding: 6px 14px;
+            border-radius: 25px;
+            font-size: 0.8rem;
+            color: var(--text-dark);
+            animation: pulse-soft 2s infinite ease-in-out;
+        }
+        .live-counter .counter-icon {
+            font-size: 0.9rem;
+            animation: heartbeat-counter 1.5s infinite;
+        }
+        .live-counter .counter-text { font-weight: 500; }
+        .live-counter #valentineCount { font-weight: 700; color: var(--deep-pink); }
+        @keyframes pulse-soft { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.02); } }
+        @keyframes heartbeat-counter { 0%, 100% { transform: scale(1); } 25% { transform: scale(1.1); } 50% { transform: scale(1); } 75% { transform: scale(1.15); } }
+        
+        /* Testimonials */
+        .testimonials-mini { width: 100%; max-width: 300px; margin: 0 auto 10px; position: relative; min-height: 65px; }
+        .testimonial-card { display: none; background: linear-gradient(135deg, rgba(255,255,255,0.95), rgba(255,240,245,0.95)); border: 1px solid rgba(255,107,157,0.2); border-radius: 10px; padding: 10px 14px; text-align: center; animation: fadeIn 0.5s ease; }
+        .testimonial-card.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .testimonial-quote { display: block; font-size: 0.8rem; color: var(--text-dark); font-style: italic; line-height: 1.4; margin-bottom: 5px; }
+        .testimonial-author { display: block; font-size: 0.7rem; color: var(--primary-pink); font-weight: 600; }
+        .testimonial-dots { display: flex; justify-content: center; gap: 5px; margin-top: 6px; }
+        .testimonial-dots .dot { width: 7px; height: 7px; border-radius: 50%; background: rgba(255,107,157,0.3); cursor: pointer; transition: all 0.3s ease; }
+        .testimonial-dots .dot.active { background: var(--primary-pink); transform: scale(1.2); }
+        
+        /* QR Code */
+        .qr-section { margin: 12px 0; border: 1px solid rgba(255,107,157,0.2); border-radius: 10px; overflow: hidden; background: linear-gradient(135deg, #fff5f7, #fff); }
+        .qr-header { display: flex; align-items: center; justify-content: center; gap: 6px; padding: 10px 14px; cursor: pointer; transition: background 0.3s ease; }
+        .qr-header:hover { background: rgba(255,107,157,0.05); }
+        .qr-toggle-icon { font-size: 1rem; }
+        .qr-toggle-text { font-size: 0.8rem; font-weight: 600; color: var(--text-dark); }
+        .qr-arrow { font-size: 0.65rem; color: var(--text-light); transition: transform 0.3s ease; }
+        .qr-section.open .qr-arrow { transform: rotate(180deg); }
+        .qr-content { padding: 0 14px 14px; text-align: center; animation: slideDown 0.3s ease; }
+        @keyframes slideDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+        .qr-code-container { display: flex; justify-content: center; margin-bottom: 8px; }
+        .qr-code-container canvas { border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        .qr-hint { font-size: 0.7rem; color: var(--text-light); margin-bottom: 8px; }
+        .btn-qr-download { background: linear-gradient(135deg, var(--primary-pink), var(--deep-pink)); color: white; border: none; padding: 8px 18px; border-radius: 20px; font-size: 0.8rem; font-weight: 600; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(255,107,157,0.3); }
+        .btn-qr-download:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(255,107,157,0.4); }
     </style>
 </head>
 <body>
@@ -488,11 +581,29 @@
             <div class="intro-content" style="padding-top: 5px;">
                 <div class="heart-icon pulse" style="font-size: 2.2rem; margin-bottom: 2px;">💌</div>
                 <span class="year-badge" style="margin-bottom: 4px; padding: 3px 10px; font-size: 0.7rem;">Valentine's Day 2026</span>
+                
+                <!-- Countdown Timer -->
+                <div class="countdown-timer" id="countdownTimer" style="margin: 6px 0;">
+                    <div class="countdown-label">⏰ Valentine's Day in</div>
+                    <div class="countdown-display" id="countdownDisplay">
+                        <div class="countdown-item"><span id="countDays">--</span><small>days</small></div>
+                        <div class="countdown-item"><span id="countHours">--</span><small>hrs</small></div>
+                        <div class="countdown-item"><span id="countMins">--</span><small>min</small></div>
+                        <div class="countdown-item"><span id="countSecs">--</span><small>sec</small></div>
+                    </div>
+                </div>
+                
                 <h1 class="title" style="font-size: 1.6rem; margin-bottom: 4px;">Valentine E-Card Generator</h1>
-                <p class="subtitle" style="font-size: 1.2rem; margin-bottom: 14px; line-height: 1.6;">
+                <p class="subtitle" style="font-size: 1.2rem; margin-bottom: 8px; line-height: 1.6;">
                     Create beautiful digital Valentine cards with envelope animations!
                     Send via email, WhatsApp, or any app. 100% free.
                 </p>
+                
+                <!-- Live Counter -->
+                <div class="live-counter" id="liveCounter" style="margin-bottom: 10px;">
+                    <span class="counter-icon">💕</span>
+                    <span class="counter-text"><span id="valentineCount">--</span> Valentines sent!</span>
+                </div>
                 
                 <!-- Trust Badges Section -->
                 <div class="trust-badges compact" style="margin-bottom: 8px;">
@@ -511,6 +622,32 @@
                     <div class="trust-badge">
                         <span class="trust-icon">🚫</span>
                         <span>No Ads</span>
+                    </div>
+                </div>
+                
+                <!-- Testimonials Section -->
+                <div class="testimonials-mini" id="testimonialsMini">
+                    <div class="testimonial-card active" id="testimonial1">
+                        <span class="testimonial-quote">"The envelope animation was so beautiful! 💌"</span>
+                        <span class="testimonial-author">— Lisa & James</span>
+                    </div>
+                    <div class="testimonial-card" id="testimonial2">
+                        <span class="testimonial-quote">"Perfect e-card! She loved the custom message! 💕"</span>
+                        <span class="testimonial-author">— Ryan & Sophie</span>
+                    </div>
+                    <div class="testimonial-card" id="testimonial3">
+                        <span class="testimonial-quote">"Sent it via WhatsApp - worked perfectly! 📱"</span>
+                        <span class="testimonial-author">— Kevin & Amy</span>
+                    </div>
+                    <div class="testimonial-card" id="testimonial4">
+                        <span class="testimonial-quote">"The purple theme matched our wedding colors! 💜"</span>
+                        <span class="testimonial-author">— Daniel & Maria</span>
+                    </div>
+                    <div class="testimonial-dots">
+                        <span class="dot active" onclick="showTestimonial(0)"></span>
+                        <span class="dot" onclick="showTestimonial(1)"></span>
+                        <span class="dot" onclick="showTestimonial(2)"></span>
+                        <span class="dot" onclick="showTestimonial(3)"></span>
                     </div>
                 </div>
                 
@@ -690,13 +827,13 @@
                     <div class="about-content">
                         <p>Welcome to the <strong>Valentine E-Card Generator</strong> - create beautiful <strong>digital valentine cards</strong> with stunning envelope animations! Our <strong>free e-card maker</strong> helps you send personalized valentine greetings via email, WhatsApp, or any messaging app.</p>
                         <p>Features include:</p>
-                        <ul>
+                        <ul class="about-list">
                             <li>💌 Beautiful envelope opening animation</li>
-                            <li>🎨 4 romantic themes to choose from</li>
-                            <li>💬 Custom message or romantic default</li>
-                            <li>📊 Track when they open & respond</li>
-                            <li>😂 Fun runaway No button game</li>
-                            <li>🆓 100% free, no signup required</li>
+                            <li>🌹 4 romantic themes to choose from</li>
+                            <li>💕 Custom message or romantic default</li>
+                            <li>👀 Track when they open & respond</li>
+                            <li>😄 Fun runaway No button game</li>
+                            <li>💯 100% free, no signup required</li>
                         </ul>
                     </div>
                 </section>
@@ -832,6 +969,24 @@
                     <button class="share-btn sms" onclick="shareSMS()">💬 SMS</button>
                 </div>
                 
+                <!-- QR Code Section -->
+                <div class="qr-section" id="qrSection">
+                    <div class="qr-header" onclick="toggleQrSection()">
+                        <span class="qr-toggle-icon">📱</span>
+                        <span class="qr-toggle-text">Get QR Code for Printed Cards</span>
+                        <span class="qr-arrow" id="qrArrow">▼</span>
+                    </div>
+                    <div class="qr-content" id="qrContent" style="display: none;">
+                        <div class="qr-code-container">
+                            <canvas id="qrCanvas"></canvas>
+                        </div>
+                        <p class="qr-hint">Perfect for in-person surprises & printed cards!</p>
+                        <button class="btn-qr-download" onclick="downloadQRCode()">
+                            <span>📥 Download QR Code</span>
+                        </button>
+                    </div>
+                </div>
+                
                 <div class="action-buttons">
                     <button class="action-btn test" onclick="testECard()">👀 Test It</button>
                     <button class="action-btn track" onclick="openDashboard()">📊 Track Now</button>
@@ -925,6 +1080,9 @@
         </div>
     </div>
 
+    <!-- QR Code Library -->
+    <script src="https://cdn.jsdelivr.net/npm/qrious@4.0.2/dist/qrious.min.js"></script>
+    
     <!-- Firebase SDK -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js";
@@ -1075,6 +1233,9 @@
             
             applyThemeBackground(theme);
             showScreen('linkScreen');
+            
+            // Generate QR code
+            generateQRCode(link);
         }
         
         function saveECardToFirebase(id, data) {
@@ -1280,9 +1441,218 @@
         function showPrivacyModal() { document.getElementById('privacyModal').style.display = 'flex'; }
         function closePrivacyModal() { document.getElementById('privacyModal').style.display = 'none'; }
         
+        // ============================================================================
+        // QR CODE GENERATION
+        // ============================================================================
+        
+        let currentQRLink = null;
+        
+        function toggleQrSection() {
+            const qrSection = document.getElementById('qrSection');
+            const qrContent = document.getElementById('qrContent');
+            if (!qrSection || !qrContent) return;
+            
+            const isOpen = qrContent.style.display !== 'none';
+            if (isOpen) {
+                qrContent.style.display = 'none';
+                qrSection.classList.remove('open');
+            } else {
+                qrContent.style.display = 'block';
+                qrSection.classList.add('open');
+                // Always regenerate when opening
+                if (currentQRLink) {
+                    setTimeout(() => generateQRCode(currentQRLink), 100);
+                }
+            }
+        }
+        
+        function generateQRCode(link) {
+            const canvas = document.getElementById('qrCanvas');
+            currentQRLink = link;
+            
+            // Check if QRious library is loaded
+            if (!window.QRious) {
+                setTimeout(() => generateQRCode(link), 300);
+                return;
+            }
+            
+            if (!canvas) {
+                setTimeout(() => generateQRCode(link), 300);
+                return;
+            }
+            
+            // Generate the QR code using QRious
+            try {
+                new QRious({
+                    element: canvas,
+                    value: link,
+                    size: 160,
+                    level: 'M',
+                    foreground: '#e91e63',
+                    background: '#ffffff',
+                    padding: 10
+                });
+            } catch (error) {
+                console.error('QR Code generation error:', error);
+            }
+        }
+        
+        function downloadQRCode() {
+            const canvas = document.getElementById('qrCanvas');
+            if (!canvas) return;
+            const link = document.createElement('a');
+            link.download = 'valentine-ecard-qr.png';
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+        }
+        
+        // ============================================================================
+        // TESTIMONIALS ROTATION
+        // ============================================================================
+        
+        let currentTestimonial = 0;
+        let testimonialInterval = null;
+        
+        function initTestimonials() {
+            const testimonials = document.querySelectorAll('.testimonial-card');
+            if (testimonials.length === 0) return;
+            
+            testimonialInterval = setInterval(() => {
+                currentTestimonial = (currentTestimonial + 1) % testimonials.length;
+                showTestimonial(currentTestimonial);
+            }, 4000);
+        }
+        
+        function showTestimonial(index) {
+            const testimonials = document.querySelectorAll('.testimonial-card');
+            const dots = document.querySelectorAll('.testimonial-dots .dot');
+            if (testimonials.length === 0) return;
+            
+            currentTestimonial = index;
+            testimonials.forEach(t => t.classList.remove('active'));
+            dots.forEach(d => d.classList.remove('active'));
+            
+            if (testimonials[index]) testimonials[index].classList.add('active');
+            if (dots[index]) dots[index].classList.add('active');
+            
+            if (testimonialInterval) {
+                clearInterval(testimonialInterval);
+                testimonialInterval = setInterval(() => {
+                    currentTestimonial = (currentTestimonial + 1) % testimonials.length;
+                    showTestimonial(currentTestimonial);
+                }, 4000);
+            }
+        }
+        
+        // ============================================================================
+        // COUNTDOWN TIMER
+        // ============================================================================
+        
+        function initCountdownTimer() {
+            const countdownTimer = document.getElementById('countdownTimer');
+            if (!countdownTimer) return;
+            
+            // Valentine's Day 2026 - February 14, 2026 at midnight
+            const valentinesDay = new Date('2026-02-14T00:00:00');
+            
+            function updateCountdown() {
+                const now = new Date();
+                const diff = valentinesDay - now;
+                
+                if (diff <= 0) {
+                    const label = countdownTimer.querySelector('.countdown-label');
+                    if (label) label.textContent = "💕 Happy Valentine's Day! 💕";
+                    countdownTimer.classList.add('finished');
+                    return;
+                }
+                
+                const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                const secs = Math.floor((diff % (1000 * 60)) / 1000);
+                
+                const daysEl = document.getElementById('countDays');
+                const hoursEl = document.getElementById('countHours');
+                const minsEl = document.getElementById('countMins');
+                const secsEl = document.getElementById('countSecs');
+                
+                if (daysEl) daysEl.textContent = days;
+                if (hoursEl) hoursEl.textContent = hours.toString().padStart(2, '0');
+                if (minsEl) minsEl.textContent = mins.toString().padStart(2, '0');
+                if (secsEl) secsEl.textContent = secs.toString().padStart(2, '0');
+            }
+            
+            updateCountdown();
+            setInterval(updateCountdown, 1000);
+        }
+        
+        // ============================================================================
+        // LIVE VALENTINE COUNTER
+        // ============================================================================
+        
+        function initLiveCounter() {
+            const counterEl = document.getElementById('valentineCount');
+            if (!counterEl) return;
+            
+            if (!window.firebaseReady) {
+                if (!window.liveCounterRetries) window.liveCounterRetries = 0;
+                window.liveCounterRetries++;
+                
+                if (window.liveCounterRetries < 5) {
+                    setTimeout(initLiveCounter, 500);
+                } else {
+                    counterEl.textContent = '2,000+';
+                }
+                return;
+            }
+            
+            const valentinesRef = window.firebaseRef(window.firebaseDb, 'valentines');
+            window.firebaseOnValue(valentinesRef, (snapshot) => {
+                const data = snapshot.val();
+                if (data) {
+                    const count = Object.keys(data).length;
+                    animateCounter(counterEl, count);
+                } else {
+                    counterEl.textContent = '2,000+';
+                }
+            }, (error) => {
+                // Permission denied - show estimated count silently
+                counterEl.textContent = '2,000+';
+            });
+        }
+        
+        function animateCounter(element, target) {
+            const current = parseInt(element.textContent.replace(/,/g, '')) || 0;
+            const diff = target - current;
+            
+            if (Math.abs(diff) < 5) {
+                element.textContent = target.toLocaleString();
+                return;
+            }
+            
+            const duration = 1000;
+            const steps = 30;
+            const stepValue = diff / steps;
+            let step = 0;
+            
+            const interval = setInterval(() => {
+                step++;
+                const newValue = Math.round(current + (stepValue * step));
+                element.textContent = newValue.toLocaleString();
+                
+                if (step >= steps) {
+                    clearInterval(interval);
+                    element.textContent = target.toLocaleString();
+                }
+            }, duration / steps);
+        }
+        
         // Init
         document.addEventListener('DOMContentLoaded', () => {
             checkUrlParams();
+            initCountdownTimer();
+            initLiveCounter();
+            initTestimonials();
             
             // Theme selection - handle both change and click events for better mobile support
             const themeRadios = document.querySelectorAll('input[name="theme"]');

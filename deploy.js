@@ -43,7 +43,7 @@ const config = {
         
         // Images (legacy)
         'favicon.svg',
-        'og-image.svg'
+        'og-image.jpeg'
     ],
     
     // Folders to deploy (entire folder contents)

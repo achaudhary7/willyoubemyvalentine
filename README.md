@@ -80,7 +80,7 @@ Valentine/
 │   └── will-you-be-my-valentine-digital-card/
 ├── Favicon/            # Complete favicon set (all sizes)
 ├── favicon.svg         # Site favicon
-├── og-image.svg        # Social media preview image
+├── og-image.jpeg        # Social media preview image
 ├── manifest.json       # PWA manifest
 ├── sitemap.xml         # SEO sitemap
 ├── sitemap_index.xml   # Sitemap index

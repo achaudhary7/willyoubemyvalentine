@@ -4,6 +4,7 @@
   "description": "Will You Be My Valentine? - A romantic interactive game",
   "main": "index.html",
   "scripts": {
+    "serve": "npx http-server -p 3000 -o",
     "deploy": "node deploy.js",
     "deploy:dry-run": "node deploy.js --dry-run",
     "deploy:verbose": "node deploy.js --verbose"

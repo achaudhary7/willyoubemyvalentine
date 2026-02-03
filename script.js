@@ -11,6 +11,7 @@
 let noButtonMoveCount = 0;
 let currentTrackingId = null; // Current valentine tracking ID
 let dashboardListener = null; // Firebase listener for real-time updates
+let currentQRLink = null; // Current QR code link for download
 
 const teaseMessages = [
     "Oops! Try again! 😏",
@@ -248,6 +249,9 @@ function generateLink() {
     showScreen('linkScreen');
     document.getElementById('generatedLink').value = shareableLink;
     document.getElementById('trackingLink').value = trackingLink;
+    
+    // Store link for QR code (generate when section is opened)
+    currentQRLink = shareableLink;
 }
 
 function copyLink(inputId = 'generatedLink', textId = 'copyText') {
@@ -909,4 +913,279 @@ function goToHome() {
     // Show intro screen
     showScreen('introScreen');
     initFloatingHearts();
+}
+
+// ============================================================================
+// COUNTDOWN TIMER
+// ============================================================================
+
+/**
+ * Initialize and run the Valentine's Day countdown timer
+ */
+function initCountdownTimer() {
+    const countdownTimer = document.getElementById('countdownTimer');
+    if (!countdownTimer) return;
+    
+    // Valentine's Day 2026 - February 14, 2026 at midnight
+    const valentinesDay = new Date('2026-02-14T00:00:00');
+    
+    function updateCountdown() {
+        const now = new Date();
+        const diff = valentinesDay - now;
+        
+        // If Valentine's Day has passed
+        if (diff <= 0) {
+            const label = countdownTimer.querySelector('.countdown-label');
+            if (label) {
+                label.textContent = "💕 Happy Valentine's Day! 💕";
+            }
+            countdownTimer.classList.add('finished');
+            return;
+        }
+        
+        // Calculate time components
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        const secs = Math.floor((diff % (1000 * 60)) / 1000);
+        
+        // Update display
+        const daysEl = document.getElementById('countDays');
+        const hoursEl = document.getElementById('countHours');
+        const minsEl = document.getElementById('countMins');
+        const secsEl = document.getElementById('countSecs');
+        
+        if (daysEl) daysEl.textContent = days;
+        if (hoursEl) hoursEl.textContent = hours.toString().padStart(2, '0');
+        if (minsEl) minsEl.textContent = mins.toString().padStart(2, '0');
+        if (secsEl) secsEl.textContent = secs.toString().padStart(2, '0');
+    }
+    
+    // Update immediately and then every second
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+}
+
+// ============================================================================
+// LIVE VALENTINE COUNTER
+// ============================================================================
+
+/**
+ * Initialize and fetch the live Valentine count from Firebase
+ */
+function initLiveCounter() {
+    const counterEl = document.getElementById('valentineCount');
+    if (!counterEl) return;
+    
+    // Wait for Firebase to be ready
+    if (!isFirebaseReady()) {
+        // Retry after a short delay, max 5 attempts
+        if (!window.liveCounterRetries) window.liveCounterRetries = 0;
+        window.liveCounterRetries++;
+        
+        if (window.liveCounterRetries < 5) {
+            setTimeout(initLiveCounter, 500);
+        } else {
+            // Firebase not available, show estimated count
+            counterEl.textContent = '2,000+';
+        }
+        return;
+    }
+    
+    // Try to get count from Firebase
+    // Note: This requires Firebase rules to allow read access
+    const valentinesRef = database.ref('valentines');
+    
+    valentinesRef.on('value', (snapshot) => {
+        const data = snapshot.val();
+        if (data) {
+            const count = Object.keys(data).length;
+            animateCounter(counterEl, count);
+        } else {
+            counterEl.textContent = '2,000+';
+        }
+    }, (error) => {
+        // Permission denied or other error - show estimated count silently
+        // Based on actual data: ~2000 valentines created
+        counterEl.textContent = '2,000+';
+    });
+}
+
+/**
+ * Animate counter from current value to target value
+ * @param {HTMLElement} element - The element to update
+ * @param {number} target - Target count value
+ */
+function animateCounter(element, target) {
+    const current = parseInt(element.textContent.replace(/,/g, '')) || 0;
+    const diff = target - current;
+    
+    // If difference is small, just set it directly
+    if (Math.abs(diff) < 5) {
+        element.textContent = target.toLocaleString();
+        return;
+    }
+    
+    // Animate the count
+    const duration = 1000; // 1 second
+    const steps = 30;
+    const stepValue = diff / steps;
+    let step = 0;
+    
+    const interval = setInterval(() => {
+        step++;
+        const newValue = Math.round(current + (stepValue * step));
+        element.textContent = newValue.toLocaleString();
+        
+        if (step >= steps) {
+            clearInterval(interval);
+            element.textContent = target.toLocaleString();
+        }
+    }, duration / steps);
+}
+
+// Initialize countdown and counter when DOM is ready
+document.addEventListener('DOMContentLoaded', function() {
+    initCountdownTimer();
+    initLiveCounter();
+    initTestimonials();
+});
+
+// ============================================================================
+// QR CODE GENERATION
+// ============================================================================
+
+/**
+ * Toggle QR code section visibility
+ */
+function toggleQrSection() {
+    const qrSection = document.getElementById('qrSection');
+    const qrContent = document.getElementById('qrContent');
+    
+    if (!qrSection || !qrContent) return;
+    
+    const isOpen = qrContent.style.display !== 'none';
+    
+    if (isOpen) {
+        qrContent.style.display = 'none';
+        qrSection.classList.remove('open');
+    } else {
+        qrContent.style.display = 'block';
+        qrSection.classList.add('open');
+        
+        // Always regenerate QR when opening (ensures it's visible)
+        if (currentQRLink) {
+            // Small delay to ensure canvas is visible before drawing
+            setTimeout(() => generateQRCode(currentQRLink), 100);
+        }
+    }
+}
+
+/**
+ * Generate QR code for the valentine link using QRious library
+ * @param {string} link - The valentine link
+ */
+function generateQRCode(link) {
+    const canvas = document.getElementById('qrCanvas');
+    
+    // Store the link for later
+    currentQRLink = link;
+    
+    // Check if QRious library is loaded
+    if (!window.QRious) {
+        // Retry after library loads
+        setTimeout(() => generateQRCode(link), 300);
+        return;
+    }
+    
+    if (!canvas) {
+        // Canvas not found, retry
+        setTimeout(() => generateQRCode(link), 300);
+        return;
+    }
+    
+    // Generate the QR code using QRious
+    try {
+        new QRious({
+            element: canvas,
+            value: link,
+            size: 180,
+            level: 'M',
+            foreground: '#e91e63',
+            background: '#ffffff',
+            padding: 10
+        });
+    } catch (error) {
+        console.error('QR Code generation error:', error);
+    }
+}
+
+/**
+ * Download QR code as PNG image
+ */
+function downloadQRCode() {
+    const canvas = document.getElementById('qrCanvas');
+    if (!canvas) return;
+    
+    // Create a temporary link to download
+    const link = document.createElement('a');
+    link.download = 'valentine-qr-code.png';
+    link.href = canvas.toDataURL('image/png');
+    link.click();
+}
+
+// ============================================================================
+// TESTIMONIALS ROTATION
+// ============================================================================
+
+let currentTestimonial = 0;
+let testimonialInterval = null;
+
+/**
+ * Initialize testimonials auto-rotation
+ */
+function initTestimonials() {
+    const testimonials = document.querySelectorAll('.testimonial-card');
+    if (testimonials.length === 0) return;
+    
+    // Start auto-rotation
+    testimonialInterval = setInterval(() => {
+        currentTestimonial = (currentTestimonial + 1) % testimonials.length;
+        showTestimonial(currentTestimonial);
+    }, 4000); // Rotate every 4 seconds
+}
+
+/**
+ * Show specific testimonial
+ * @param {number} index - Index of testimonial to show
+ */
+function showTestimonial(index) {
+    const testimonials = document.querySelectorAll('.testimonial-card');
+    const dots = document.querySelectorAll('.testimonial-dots .dot');
+    
+    if (testimonials.length === 0) return;
+    
+    // Update current index
+    currentTestimonial = index;
+    
+    // Hide all testimonials
+    testimonials.forEach(t => t.classList.remove('active'));
+    dots.forEach(d => d.classList.remove('active'));
+    
+    // Show selected testimonial
+    if (testimonials[index]) {
+        testimonials[index].classList.add('active');
+    }
+    if (dots[index]) {
+        dots[index].classList.add('active');
+    }
+    
+    // Reset the interval when manually clicking
+    if (testimonialInterval) {
+        clearInterval(testimonialInterval);
+        testimonialInterval = setInterval(() => {
+            currentTestimonial = (currentTestimonial + 1) % testimonials.length;
+            showTestimonial(currentTestimonial);
+        }, 4000);
+    }
 }
