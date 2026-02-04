@@ -438,6 +438,43 @@
             color: white;
         }
         
+        /* Header Support Strip - Always visible */
+        .header-support-strip {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            background: linear-gradient(135deg, #FFEB3B 0%, #FFC107 100%);
+            padding: 6px 15px;
+            font-size: 0.8rem;
+            flex-wrap: wrap;
+        }
+        
+        .header-stats {
+            color: #333;
+            font-weight: 500;
+        }
+        
+        .header-stats-divider {
+            color: #795548;
+            opacity: 0.5;
+        }
+        
+        .header-coffee-link {
+            background: #000;
+            color: #FFDD00 !important;
+            padding: 4px 12px;
+            border-radius: 15px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.75rem;
+            transition: transform 0.2s ease;
+        }
+        
+        .header-coffee-link:hover {
+            transform: scale(1.05);
+        }
+        
         .mobile-menu-toggle {
             display: none;
             background: none;
@@ -483,8 +520,8 @@
             .header-logo { font-size: 1.3rem; }
         }
         
-        body { padding-top: 60px; }
-        .screen { top: 60px; height: calc(100% - 60px); }
+        body { padding-top: 90px; }
+        .screen { top: 90px; height: calc(100% - 90px); }
         
         /* Support Section Styles */
         .support-section {
@@ -760,6 +797,13 @@
                 <a href="/minion/">🍌 Minion</a>
                 <a href="/articles/">📝 Articles</a>
             </nav>
+        </div>
+        <!-- Header Support Strip - Always visible including mobile -->
+        <div class="header-support-strip">
+            <span class="header-stats">🏆 #1 on Google</span>
+            <span class="header-stats-divider">•</span>
+            <span class="header-stats">⭐ 100% Free</span>
+            <a href="https://buymeacoffee.com/vibecodingisfun" target="_blank" rel="noopener" class="header-coffee-link">☕ Love it? Buy Me a Coffee!</a>
         </div>
     </header>
     
