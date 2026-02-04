@@ -41,17 +41,18 @@ const config = {
         'sitemap.txt',
         'robots.txt',
         
-        // Images (legacy)
-        'favicon.svg',
+        // Images
         'favicon.ico',
-        'og-image.jpeg'
+        'og-image.jpeg',
+        'buymeacoffee-qr.png'
     ],
     
     // Folders to deploy (entire folder contents)
     foldersToDeploy: [
-        'Favicon',
         'articles',
-        'ecard'
+        'ecard',
+        'github',
+        'minion'
     ]
 };
 
