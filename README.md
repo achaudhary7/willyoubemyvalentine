@@ -31,7 +31,7 @@ The perfect **valentine's day yes or no website** for asking someone to be your 
 - **Beautiful Animations** - Fireworks & hearts celebration when they say Yes
 - **Real-time Tracking Dashboard** - See when they open your link and respond
 - **Mobile Responsive** - Works perfectly on all devices
-- **100% Free & Safe** - No signup, no ads, no data collection
+- **100% Free & Safe** - No signup, minimal non-intrusive ads, no personal data collection
 
 ### 💌 E-Card Generator (NEW!)
 - **Digital Valentine Cards** - Create beautiful animated e-cards
@@ -112,11 +112,12 @@ npm run deploy
 ## 🔒 Privacy
 
 - No personal data collection
-- No cookies for tracking
+- Minimal cookies (Google Analytics for site statistics)
 - No signup required
 - Links only contain sender's name
 - Completely safe and legitimate
 - Open source - view all the code!
+- Full [Privacy Policy](/privacy/) available
 
 ## 📱 Pages
 

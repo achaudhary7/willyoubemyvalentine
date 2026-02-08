@@ -31,6 +31,7 @@ const config = {
     filesToDeploy: [
         // Core files
         'index.html',
+        '404.html',
         'styles.css',
         'script.js',
         '.htaccess',
@@ -40,11 +41,18 @@ const config = {
         'sitemap_index.xml',
         'sitemap.txt',
         'robots.txt',
+        'manifest.json',
+        
+        // Favicon & PWA icons
+        'favicon.ico',
+        'favicon.svg',
+        'favicon-96x96.png',
+        'apple-touch-icon.png',
+        'icon-192.png',
+        'icon-512.png',
         
         // Images
-        'favicon.ico',
-        'og-image.jpeg',
-        'buymeacoffee-qr.png'
+        'og-image.jpeg'
     ],
     
     // Folders to deploy (entire folder contents)
@@ -52,7 +60,11 @@ const config = {
         'articles',
         'ecard',
         'github',
-        'minion'
+        'minion',
+        'privacy',
+        'about',
+        'contact',
+        'terms'
     ]
 };
 

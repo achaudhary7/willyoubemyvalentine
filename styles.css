@@ -1082,30 +1082,6 @@ body {
     }
 }
 
-/* ============================================================================
-   SEO CONTENT (Hidden but crawlable)
-   ============================================================================ */
-
-.seo-content {
-    position: absolute;
-    left: -9999px;
-    top: auto;
-    width: 1px;
-    height: 1px;
-    overflow: hidden;
-    /* Visible to screen readers and search engines but hidden visually */
-}
-
-.seo-content h2,
-.seo-content h3,
-.seo-content h4,
-.seo-content p,
-.seo-content ul,
-.seo-content ol,
-.seo-content li {
-    margin: 0;
-    padding: 0;
-}
 
 /* Extra small devices */
 @media (max-width: 360px) {
@@ -1202,9 +1178,11 @@ body {
 
 .intro-wrapper {
     width: 100%;
-    height: 100%;
+    flex: 1 1 0;
+    min-height: 0;
     overflow-y: auto;
     overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
     padding: 20px;
     display: flex;
     flex-direction: column;
@@ -1212,6 +1190,7 @@ body {
 }
 
 .intro-screen {
+    flex-direction: column;
     overflow: hidden;
 }
 
@@ -1915,8 +1894,9 @@ body {
     border-bottom: none;
 }
 
-/* Keywords Cloud */
-.keywords-cloud {
+/* Keywords Cloud / Explore Links */
+.keywords-cloud,
+.explore-links {
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
@@ -2223,6 +2203,7 @@ a.keyword-tag {
 .link-screen {
     overflow-y: auto;
     overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
     padding: 15px;
     align-items: flex-start;
 }
@@ -2895,4 +2876,374 @@ a.keyword-tag {
         transform: translateX(-50%) translateY(0); 
         opacity: 1; 
     }
+}
+
+/* ============================================================================
+   GOOGLE ADS - REUSABLE AD CONTAINER SYSTEM
+   ============================================================================
+   
+   Ad container framework for Google AdSense integration.
+   
+   USAGE:
+   - .ad-container              Base container (centered, flex, min-height)
+   - .ad-container--leaderboard 728x90 desktop leaderboard
+   - .ad-container--rectangle   300x250 medium rectangle (in-content)
+   - .ad-container--large-rect  336x280 large rectangle
+   - .ad-container--sidebar     300x600 half-page (sidebar/sticky)
+   - .ad-container--mobile      320x100 large mobile banner
+   - .ad-container--sticky      Fixed bottom anchor ad (mobile)
+   - .ad-container--in-article  In-article responsive ad
+   
+   HTML Pattern:
+   <div class="ad-container ad-container--leaderboard" data-ad-slot="SLOT_ID">
+       <span class="ad-label">Advertisement</span>
+   </div>
+   ============================================================================ */
+
+/* --- Base Ad Container --- */
+.ad-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, rgba(252, 228, 236, 0.3), rgba(255, 240, 245, 0.4));
+    border: 1px dashed rgba(255, 107, 157, 0.25);
+    border-radius: 12px;
+    margin: 20px auto;
+    max-width: 100%;
+    min-height: 90px;
+    overflow: hidden;
+    position: relative;
+    transition: opacity 0.3s ease;
+}
+
+/* When ad loads, remove placeholder styling */
+.ad-container.ad-loaded {
+    background: transparent;
+    border: none;
+    border-radius: 0;
+}
+
+/* Ad label - "Advertisement" text */
+.ad-label {
+    color: rgba(109, 76, 92, 0.4);
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-family: var(--font-body);
+    position: absolute;
+    top: 4px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1;
+    pointer-events: none;
+}
+
+.ad-container.ad-loaded .ad-label {
+    display: none;
+}
+
+/* --- Leaderboard: 728x90 (Desktop) --- */
+.ad-container--leaderboard {
+    width: 100%;
+    max-width: 728px;
+    min-height: 90px;
+}
+
+/* --- Medium Rectangle: 300x250 (In-Content) --- */
+.ad-container--rectangle {
+    width: 100%;
+    max-width: 300px;
+    min-height: 250px;
+}
+
+/* --- Large Rectangle: 336x280 --- */
+.ad-container--large-rect {
+    width: 100%;
+    max-width: 336px;
+    min-height: 280px;
+}
+
+/* --- Sidebar / Half Page: 300x600 --- */
+.ad-container--sidebar {
+    width: 100%;
+    max-width: 300px;
+    min-height: 600px;
+}
+
+/* --- Mobile Banner: 320x100 --- */
+.ad-container--mobile {
+    width: 100%;
+    max-width: 320px;
+    min-height: 100px;
+    display: none; /* Only show on mobile */
+}
+
+/* --- In-Article Responsive Ad --- */
+.ad-container--in-article {
+    width: 100%;
+    max-width: 728px;
+    min-height: 120px;
+    margin: 25px auto;
+}
+
+/* --- Sticky Bottom Ad (Mobile Anchor) --- */
+.ad-container--sticky {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    max-width: 100%;
+    min-height: 50px;
+    z-index: 9990;
+    border-radius: 0;
+    border: none;
+    border-top: 1px solid rgba(255, 107, 157, 0.15);
+    background: rgba(255, 255, 255, 0.98);
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.08);
+    margin: 0;
+    display: none; /* Only show on mobile via JS */
+}
+
+.ad-container--sticky .ad-close-btn {
+    position: absolute;
+    top: -24px;
+    right: 8px;
+    width: 24px;
+    height: 24px;
+    background: rgba(255, 255, 255, 0.95);
+    border: 1px solid rgba(255, 107, 157, 0.3);
+    border-radius: 50%;
+    font-size: 0.7rem;
+    color: var(--text-light);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9991;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+    transition: all 0.2s ease;
+}
+
+.ad-container--sticky .ad-close-btn:hover {
+    background: var(--soft-pink);
+    color: var(--deep-pink);
+}
+
+/* --- Responsive Ad Wrapper (auto-sizes per Google recommendation) --- */
+.ad-container--responsive {
+    width: 100%;
+    max-width: 728px;
+    min-height: 90px;
+}
+
+/* --- Header/Inline Banner (slim, responsive) --- */
+.ad-container--banner {
+    width: 100%;
+    max-width: 728px;
+    min-height: 90px;
+    margin: 8px auto;
+    border-radius: 8px;
+}
+
+/* --- Mobile-First Responsive (Google-recommended breakpoints) --- */
+/* Uses 320x100 on mobile, 468x60 on tablet, 728x90 on desktop */
+.ad-container--auto-responsive {
+    width: 100%;
+    max-width: 728px;
+    min-height: 90px;
+}
+
+/* --- Desktop-only Ad (hidden on mobile) --- */
+.ad-container--desktop-only {
+    width: 100%;
+    max-width: 728px;
+    min-height: 90px;
+}
+
+/* --- Mobile-only In-Content (300x250 rectangle, highest mobile CTR) --- */
+.ad-container--mobile-incontent {
+    width: 100%;
+    max-width: 300px;
+    min-height: 250px;
+    display: none; /* Only show on mobile */
+}
+
+/* --- Article Page Sidebar Layout --- */
+.article-layout-with-sidebar {
+    display: flex;
+    gap: 30px;
+    max-width: 1140px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.article-layout-with-sidebar .article-main {
+    flex: 1;
+    max-width: 800px;
+    min-width: 0;
+}
+
+.article-layout-with-sidebar .article-sidebar {
+    width: 300px;
+    flex-shrink: 0;
+}
+
+.article-sidebar-sticky {
+    position: sticky;
+    top: 100px;
+}
+
+.article-sidebar .ad-container {
+    margin-bottom: 20px;
+}
+
+/* ============================================================================
+   AD RESPONSIVE BREAKPOINTS
+   ============================================================================ */
+
+/* Tablet and below: 1024px */
+@media (max-width: 1024px) {
+    .article-layout-with-sidebar {
+        flex-direction: column;
+    }
+    
+    .article-layout-with-sidebar .article-sidebar {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+    
+    .article-sidebar-sticky {
+        position: static;
+    }
+    
+    .ad-container--sidebar {
+        max-width: 728px;
+        min-height: 90px;
+    }
+}
+
+/* Tablet: 800px - switch from desktop to tablet sizes */
+@media (max-width: 800px) {
+    .ad-container--auto-responsive {
+        max-width: 468px;
+        min-height: 60px;
+    }
+    
+    .ad-container--banner {
+        max-width: 468px;
+        min-height: 60px;
+    }
+}
+
+/* Mobile: 768px */
+@media (max-width: 768px) {
+    .ad-container--leaderboard {
+        max-width: 320px;
+        min-height: 100px;
+    }
+    
+    .ad-container--in-article {
+        max-width: 300px;
+        min-height: 250px;
+    }
+    
+    .ad-container--mobile {
+        display: flex; /* Show mobile ads */
+    }
+    
+    .ad-container--mobile-incontent {
+        display: flex; /* Show mobile in-content rectangle */
+    }
+    
+    .ad-container--desktop-only {
+        display: none; /* Hide desktop-only ads */
+    }
+    
+    .ad-container--responsive {
+        max-width: 320px;
+        min-height: 100px;
+    }
+    
+    .ad-container {
+        margin: 15px auto;
+        border-radius: 8px;
+    }
+}
+
+/* Small mobile: 500px - Google-recommended mobile breakpoint */
+@media (max-width: 500px) {
+    .ad-container--auto-responsive {
+        max-width: 320px;
+        min-height: 100px;
+    }
+    
+    .ad-container--banner {
+        max-width: 320px;
+        min-height: 100px;
+    }
+    
+    .ad-container--leaderboard {
+        max-width: 100%;
+        min-height: 100px;
+    }
+    
+    .ad-container--rectangle,
+    .ad-container--large-rect {
+        max-width: 100%;
+    }
+    
+    .ad-container--in-article {
+        max-width: 100%;
+        min-height: 100px;
+    }
+    
+    .ad-container--mobile-incontent {
+        max-width: 100%;
+    }
+    
+    .ad-container {
+        margin: 12px auto;
+    }
+}
+
+/* ============================================================================
+   AD SECTION SEPARATOR (between content sections)
+   ============================================================================ */
+
+.ad-section-break {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 5px 0;
+    text-align: center;
+}
+
+/* For intro-screen, limit ad width to match content */
+.intro-wrapper .ad-section-break {
+    max-width: 500px;
+}
+
+/* Article pages ad breaks */
+.article-content .ad-section-break {
+    max-width: 100%;
+    margin: 25px 0;
+}
+
+/* Articles listing page */
+.articles-grid .ad-section-break {
+    grid-column: 1 / -1;
+}
+
+/* ============================================================================
+   AD VISIBILITY ANIMATION
+   ============================================================================ */
+
+.ad-container[data-ad-lazy="true"] {
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+.ad-container[data-ad-lazy="true"].ad-visible {
+    opacity: 1;
 }

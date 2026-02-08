@@ -46,5 +46,5 @@ AddDefaultCharset UTF-8
 # Prevent directory browsing
 Options -Indexes
 
-# Handle errors gracefully
-ErrorDocument 404 /index.html
+# Handle errors gracefully - proper 404 page (not homepage to avoid soft 404s)
+ErrorDocument 404 /404.html

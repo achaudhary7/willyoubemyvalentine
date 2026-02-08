@@ -39,12 +39,14 @@ document.addEventListener('DOMContentLoaded', function() {
     
     if (trackView) {
         // Dashboard view - show tracking dashboard
-        showDashboard(trackView);
+        // Delay Firebase dashboard load to not block initial page render for Googlebot
+        setTimeout(function() { showDashboard(trackView); }, 1500);
     } else if (senderName && trackingId) {
         // Valentine link with tracking - show question and record view
         currentTrackingId = trackingId;
         showQuestionScreen(decodeURIComponent(senderName));
-        recordView(trackingId);
+        // Delay Firebase view recording - non-blocking for page render
+        setTimeout(function() { recordView(trackingId); }, 2000);
     } else if (senderName) {
         // Legacy link without tracking - just show question
         showQuestionScreen(decodeURIComponent(senderName));
@@ -243,8 +245,8 @@ function generateLink() {
     const shareableLink = `${baseUrl}?from=${encodeURIComponent(name)}&id=${trackingId}`;
     const trackingLink = `${baseUrl}?track=${trackingId}`;
     
-    // Create Firebase entry for tracking
-    createValentineEntry(trackingId, name);
+    // Create Firebase entry for tracking (delayed to not block page render)
+    setTimeout(function() { createValentineEntry(trackingId, name); }, 1500);
     
     // Show link screen with both links
     showScreen('linkScreen');
@@ -267,8 +269,6 @@ function copyLink(inputId = 'generatedLink', textId = 'copyText') {
             copyText.textContent = '📋 Copy';
         }, 2000);
         
-        // Show Buy Me a Coffee toast after short delay
-        setTimeout(() => showCoffeeToast(), 1500);
     }).catch(() => {
         // Fallback for older browsers
         document.execCommand('copy');
@@ -277,31 +277,7 @@ function copyLink(inputId = 'generatedLink', textId = 'copyText') {
         setTimeout(() => {
             copyText.textContent = '📋 Copy';
         }, 2000);
-        
-        // Show Buy Me a Coffee toast after short delay
-        setTimeout(() => showCoffeeToast(), 1500);
     });
-}
-
-// Coffee toast - shows on 1st, 3rd, 5th copy (max 3 times per session)
-let coffeeToastCount = 0;
-function showCoffeeToast() {
-    coffeeToastCount++;
-    // Show on 1st, 3rd, 5th copy only (odd numbers, max 3 shows)
-    if (coffeeToastCount % 2 === 0 || coffeeToastCount > 5) return;
-    
-    const toast = document.createElement('div');
-    toast.id = 'coffeeToast';
-    toast.innerHTML = `
-        <div style="position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: linear-gradient(135deg, #FFEB3B, #FFC107); padding: 15px 25px; border-radius: 30px; box-shadow: 0 5px 25px rgba(0,0,0,0.2); z-index: 9999; display: flex; align-items: center; gap: 12px; animation: slideUp 0.3s ease;">
-            <span style="font-size: 1.5rem;">☕</span>
-            <span style="color: #333; font-weight: 500;">Love this? We're #1 on Google!</span>
-            <a href="https://buymeacoffee.com/vibecodingisfun" target="_blank" rel="noopener" style="background: #000; color: #FFDD00; padding: 8px 16px; border-radius: 20px; text-decoration: none; font-weight: 700; font-size: 0.85rem;">Support Us</a>
-            <button onclick="document.getElementById('coffeeToast').remove()" style="background: none; border: none; font-size: 1.2rem; cursor: pointer; padding: 0 5px; color: #333;">×</button>
-        </div>
-    `;
-    document.body.appendChild(toast);
-    setTimeout(() => { if (document.getElementById('coffeeToast')) document.getElementById('coffeeToast').remove(); }, 6000);
 }
 
 /**
@@ -874,29 +850,23 @@ function loadDashboardData(trackingId) {
         return;
     }
     
-    // Remove previous listener if exists
-    if (dashboardListener) {
-        dashboardListener.off();
-    }
-    
     // Store tracking ID for refresh
     currentTrackingId = trackingId;
-    
-    // Set up real-time listener
-    dashboardListener = database.ref('valentines/' + trackingId);
-    
-    dashboardListener.on('value', (snapshot) => {
-        const data = snapshot.val();
-        
-        if (data) {
-            updateDashboardUI(data);
-        } else {
-            showDashboardError('Valentine not found');
-        }
-    }, (error) => {
-        console.error('Dashboard error:', error);
-        showDashboardError('Error loading data');
-    });
+
+    // One-time load to reduce Firebase connections/reads (free-tier safe)
+    database.ref('valentines/' + trackingId).once('value')
+        .then((snapshot) => {
+            const data = snapshot.val();
+            if (data) {
+                updateDashboardUI(data);
+            } else {
+                showDashboardError('Valentine not found');
+            }
+        })
+        .catch((error) => {
+            console.error('Dashboard error:', error);
+            showDashboardError('Error loading data');
+        });
 }
 
 /**
@@ -996,12 +966,6 @@ function refreshDashboard() {
  * Navigate to home/intro screen
  */
 function goToHome() {
-    // Clear tracking listener
-    if (dashboardListener) {
-        dashboardListener.off();
-        dashboardListener = null;
-    }
-    
     // Clear URL parameters
     window.history.replaceState({}, document.title, window.location.pathname);
     
@@ -1071,39 +1035,8 @@ function initCountdownTimer() {
 function initLiveCounter() {
     const counterEl = document.getElementById('valentineCount');
     if (!counterEl) return;
-    
-    // Wait for Firebase to be ready
-    if (!isFirebaseReady()) {
-        // Retry after a short delay, max 5 attempts
-        if (!window.liveCounterRetries) window.liveCounterRetries = 0;
-        window.liveCounterRetries++;
-        
-        if (window.liveCounterRetries < 5) {
-            setTimeout(initLiveCounter, 500);
-        } else {
-            // Firebase not available, show estimated count
-            counterEl.textContent = '50,000+';
-        }
-        return;
-    }
-    
-    // Try to get count from Firebase
-    // Note: This requires Firebase rules to allow read access
-    const valentinesRef = database.ref('valentines');
-    
-    valentinesRef.on('value', (snapshot) => {
-        const data = snapshot.val();
-        if (data) {
-            const count = Object.keys(data).length;
-            animateCounter(counterEl, count);
-        } else {
-            counterEl.textContent = '50,000+';
-        }
-    }, (error) => {
-        // Permission denied or other error - show estimated count silently
-        // Based on actual data: ~50000 valentines created
-        counterEl.textContent = '50,000+';
-    });
+    // Free-tier safe: keep a static, friendly estimate (no Firebase reads/subscriptions)
+    counterEl.textContent = '50,000+';
 }
 
 /**
@@ -1139,11 +1072,16 @@ function animateCounter(element, target) {
     }, duration / steps);
 }
 
-// Initialize countdown and counter when DOM is ready
+// Initialize countdown immediately (no Firebase dependency)
 document.addEventListener('DOMContentLoaded', function() {
     initCountdownTimer();
-    initLiveCounter();
-    initTestimonials();
+});
+
+// Set static live counter after page load (no Firebase reads)
+window.addEventListener('load', function() {
+    setTimeout(function() {
+        initLiveCounter();
+    }, 1000);
 });
 
 // ============================================================================
@@ -1229,61 +1167,6 @@ function downloadQRCode() {
     link.click();
 }
 
-// ============================================================================
-// TESTIMONIALS ROTATION
-// ============================================================================
-
-let currentTestimonial = 0;
-let testimonialInterval = null;
-
-/**
- * Initialize testimonials auto-rotation
- */
-function initTestimonials() {
-    const testimonials = document.querySelectorAll('.testimonial-card');
-    if (testimonials.length === 0) return;
-    
-    // Start auto-rotation
-    testimonialInterval = setInterval(() => {
-        currentTestimonial = (currentTestimonial + 1) % testimonials.length;
-        showTestimonial(currentTestimonial);
-    }, 4000); // Rotate every 4 seconds
-}
-
-/**
- * Show specific testimonial
- * @param {number} index - Index of testimonial to show
- */
-function showTestimonial(index) {
-    const testimonials = document.querySelectorAll('.testimonial-card');
-    const dots = document.querySelectorAll('.testimonial-dots .dot');
-    
-    if (testimonials.length === 0) return;
-    
-    // Update current index
-    currentTestimonial = index;
-    
-    // Hide all testimonials
-    testimonials.forEach(t => t.classList.remove('active'));
-    dots.forEach(d => d.classList.remove('active'));
-    
-    // Show selected testimonial
-    if (testimonials[index]) {
-        testimonials[index].classList.add('active');
-    }
-    if (dots[index]) {
-        dots[index].classList.add('active');
-    }
-    
-    // Reset the interval when manually clicking
-    if (testimonialInterval) {
-        clearInterval(testimonialInterval);
-        testimonialInterval = setInterval(() => {
-            currentTestimonial = (currentTestimonial + 1) % testimonials.length;
-            showTestimonial(currentTestimonial);
-        }, 4000);
-    }
-}
 
 // ============================================================================
 // WHAT'S NEXT - POST-YES FOLLOW-UP FUNCTIONALITY
