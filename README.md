@@ -62,7 +62,7 @@ The perfect **valentine's day yes or no website** for asking someone to be your 
 ## 🛠️ Tech Stack
 
 - **Frontend:** HTML5, CSS3, Vanilla JavaScript
-- **Backend:** Firebase Realtime Database (for tracking)
+- **Backend:** Cloudflare Workers + D1 Database (for tracking)
 - **Hosting:** Hostinger
 - **Analytics:** Google Analytics
 - **Fonts:** Google Fonts (Dancing Script, Poppins)
@@ -73,7 +73,9 @@ The perfect **valentine's day yes or no website** for asking someone to be your 
 Valentine/
 ├── index.html          # Main homepage with link generator
 ├── styles.css          # All styling and animations (2100+ lines)
-├── script.js           # Interactive functionality (900+ lines)
+├── script.js           # Interactive functionality (1200+ lines)
+├── worker.js           # Cloudflare Worker API (D1 backend)
+├── wrangler.toml       # Cloudflare Worker config
 ├── ecard/
 │   └── index.html      # E-Card generator (standalone)
 ├── articles/           # SEO content hub
@@ -85,8 +87,12 @@ Valentine/
 │   ├── valentine-week-2026/
 │   ├── cute-will-you-be-my-valentine-ideas/
 │   └── will-you-be-my-valentine-digital-card/
+├── privacy/            # Privacy policy page
+├── about/              # About page
+├── contact/            # Contact page
+├── terms/              # Terms of service page
 ├── favicon.ico         # Site favicon
-├── og-image.jpeg        # Social media preview image
+├── og-image.jpeg       # Social media preview image
 ├── manifest.json       # PWA manifest
 ├── sitemap.xml         # SEO sitemap
 ├── sitemap_index.xml   # Sitemap index
@@ -104,10 +110,11 @@ npm install
 npm run deploy
 ```
 
-### Firebase Setup (for tracking)
-1. Create a Firebase project
-2. Enable Realtime Database
-3. Update the config in `index.html` and `ecard/index.html`
+### Cloudflare Worker Setup (for tracking)
+1. Create a Cloudflare account and set up a Worker named `valentine-api`
+2. Create a D1 database named `valentine-db` with `valentines` and `ecards` tables
+3. Bind the D1 database to the Worker with variable name `DB`
+4. Deploy the `worker.js` code to the Worker
 
 ## 🔒 Privacy
 

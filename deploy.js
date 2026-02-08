@@ -34,6 +34,7 @@ const config = {
         '404.html',
         'styles.css',
         'script.js',
+        'consent.js',
         '.htaccess',
         
         // SEO files

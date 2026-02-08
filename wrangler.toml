@@ -1,0 +1,14 @@
+# ============================================================================
+# Cloudflare Worker Configuration
+# Valentine API - Cloudflare Workers + D1
+# ============================================================================
+
+name = "valentine-api"
+main = "worker.js"
+compatibility_date = "2024-12-01"
+
+# D1 Database Binding
+[[d1_databases]]
+binding = "DB"
+database_name = "valentine-db"
+database_id = "ac0480a8-8d3b-4c9a-8095-6bfcedaae0a6"

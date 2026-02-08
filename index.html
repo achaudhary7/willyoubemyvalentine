@@ -1,14 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-HDVZBTE0GC"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-HDVZBTE0GC');
-    </script>
+    <!-- Cookie Consent -->
+    <script src="/consent.js" defer></script>
     
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
@@ -73,7 +67,7 @@
     
     <!-- Preload critical resources -->
     <link rel="preload" href="styles.css?v=25" as="style">
-    <link rel="preload" href="script.js?v=15" as="script">
+    <link rel="preload" href="script.js?v=16" as="script">
     
     <!-- JSON-LD Structured Data -->
     <script type="application/ld+json">
@@ -116,7 +110,7 @@
                 "name": "Is this website safe to use?",
                 "acceptedAnswer": {
                     "@type": "Answer",
-                    "text": "Yes. The link only contains the display name you enter. We use Google Analytics for basic site statistics and Firebase for link tracking. No signup or payment is required. The code is open source on GitHub."
+                    "text": "Yes. The link only contains the display name you enter. We use Google Analytics for basic site statistics and a secure API for link tracking. No signup or payment is required. The code is open source on GitHub."
                 }
             },
             {
@@ -156,7 +150,7 @@
                 "name": "What data do you store?",
                 "acceptedAnswer": {
                     "@type": "Answer",
-                    "text": "We store minimal data via Firebase: the sender's display name, link view count, and whether Yes was clicked. We use Google Analytics for anonymous site statistics. See our Privacy Policy for full details."
+                    "text": "We store minimal data: the sender's display name, link view count, and whether Yes was clicked. We use Google Analytics for anonymous site statistics. See our Privacy Policy for full details."
                 }
             }
         ]
@@ -887,7 +881,7 @@
                                 <span class="faq-toggle">+</span>
                             </div>
                             <div class="faq-answer">
-                                <p>Yes. The link only contains the display name you enter. We use Google Analytics for basic site statistics and Firebase for link tracking. No signup or payment is required. The code is <a href="https://github.com/achaudhary7/willyoubemyvalentine" target="_blank" rel="noopener" style="color: var(--primary-pink);">open source on GitHub</a>.</p>
+                                <p>Yes. The link only contains the display name you enter. We use Google Analytics for basic site statistics and a secure API for link tracking. No signup or payment is required. The code is <a href="https://github.com/achaudhary7/willyoubemyvalentine" target="_blank" rel="noopener" style="color: var(--primary-pink);">open source on GitHub</a>.</p>
                             </div>
                         </div>
                         <div class="faq-item" onclick="toggleFaq(this)">
@@ -932,7 +926,7 @@
                                 <span class="faq-toggle">+</span>
                             </div>
                             <div class="faq-answer">
-                                <p>We store minimal data via Firebase: the sender's display name, link view count, and whether Yes was clicked. We use Google Analytics for anonymous site statistics. See our <a href="/privacy/" style="color: var(--primary-pink);">Privacy Policy</a> for full details.</p>
+                                <p>We store minimal data: the sender's display name, link view count, and whether Yes was clicked. We use Google Analytics for anonymous site statistics. See our <a href="/privacy/" style="color: var(--primary-pink);">Privacy Policy</a> for full details.</p>
                             </div>
                         </div>
                     </div>
@@ -1037,19 +1031,19 @@
                 <h4>What We Collect (Minimal):</h4>
                 <ul>
                     <li>✅ Your chosen display name (visible in the link URL)</li>
-                    <li>✅ Basic link tracking data via Firebase (view count, yes/no response)</li>
+                    <li>✅ Basic link tracking data (view count, yes/no response)</li>
                     <li>❌ No email addresses or personal information</li>
                     <li>❌ No phone numbers or location data</li>
                     <li>❌ No account creation required</li>
                 </ul>
                 
                 <h4>How the Valentine Link Works:</h4>
-                <p>When you create a valentine link, your name is added to the URL as a simple parameter (e.g., ?from=YourName). Firebase stores basic tracking data (view count and response status) linked to a random ID.</p>
+                <p>When you create a valentine link, your name is added to the URL as a simple parameter (e.g., ?from=YourName). Our secure API stores basic tracking data (view count and response status) linked to a random ID.</p>
                 
                 <h4>Cookies & Third-Party Services:</h4>
                 <ul>
                     <li>🔹 <strong>Google Analytics</strong> — anonymous usage statistics</li>
-                    <li>🔹 <strong>Firebase</strong> — valentine link tracking data</li>
+                    <li>🔹 <strong>Cloudflare</strong> — valentine link tracking data (secure, no cookies)</li>
                     <li>🔹 <strong>Google Fonts</strong> — typography</li>
                 </ul>
                 
@@ -1402,41 +1396,7 @@
     <!-- QR Code Library -->
     <script src="https://cdn.jsdelivr.net/npm/qrious@4.0.2/dist/qrious.min.js"></script>
     
-    <!-- Firebase SDK -->
-    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
-    
-    <!-- Firebase Configuration -->
-    <script>
-        // Firebase configuration for WillYouBeMyValentine.fun
-        const firebaseConfig = {
-            apiKey: "AIzaSyBQNAhOgaB-Dl0KSwBXtBDmN8THhuGZjno",
-            authDomain: "willyoubemyvalentinefun.firebaseapp.com",
-            databaseURL: "https://willyoubemyvalentinefun-default-rtdb.firebaseio.com",
-            projectId: "willyoubemyvalentinefun",
-            storageBucket: "willyoubemyvalentinefun.firebasestorage.app",
-            messagingSenderId: "483037233730",
-            appId: "1:483037233730:web:473242923ec224a2ac63db",
-            measurementId: "G-HDVZBTE0GC"
-        };
-        
-        // Initialize Firebase
-        let firebaseApp = null;
-        let database = null;
-        let firebaseEnabled = false;
-        
-        try {
-            firebaseApp = firebase.initializeApp(firebaseConfig);
-            database = firebase.database();
-            firebaseEnabled = true;
-            console.log('🔥 Firebase initialized successfully');
-        } catch (error) {
-            console.warn('Firebase initialization failed:', error.message);
-            console.log('Tracking features will be disabled. App will work without tracking.');
-        }
-    </script>
-    
-    <script src="script.js?v=15"></script>
+    <script src="script.js?v=16"></script>
     
 </body>
 </html>

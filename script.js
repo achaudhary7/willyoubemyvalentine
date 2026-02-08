@@ -1,7 +1,7 @@
 /* ============================================================================
    VALENTINE'S DAY GAME - JAVASCRIPT
    Interactive functionality for the Valentine surprise
-   With Firebase tracking for Dashboard feature
+   With Cloudflare D1 tracking via Worker API
    ============================================================================ */
 
 // ============================================================================
@@ -10,9 +10,14 @@
 
 let noButtonMoveCount = 0;
 let currentTrackingId = null; // Current valentine tracking ID
-let dashboardListener = null; // Firebase listener for real-time updates
 let currentQRLink = null; // Current QR code link for download
 let isTestMode = false; // Flag to track if user is testing their own link
+
+// Cloudflare Worker API base URL
+// Uses local Wrangler dev server on localhost, production Worker otherwise
+const API_BASE = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
+    ? 'http://127.0.0.1:8787'
+    : 'https://valentine-api.achaudhary7.workers.dev';
 
 const teaseMessages = [
     "Oops! Try again! 😏",
@@ -39,14 +44,12 @@ document.addEventListener('DOMContentLoaded', function() {
     
     if (trackView) {
         // Dashboard view - show tracking dashboard
-        // Delay Firebase dashboard load to not block initial page render for Googlebot
-        setTimeout(function() { showDashboard(trackView); }, 1500);
+        showDashboard(trackView);
     } else if (senderName && trackingId) {
         // Valentine link with tracking - show question and record view
         currentTrackingId = trackingId;
         showQuestionScreen(decodeURIComponent(senderName));
-        // Delay Firebase view recording - non-blocking for page render
-        setTimeout(function() { recordView(trackingId); }, 2000);
+        recordView(trackingId);
     } else if (senderName) {
         // Legacy link without tracking - just show question
         showQuestionScreen(decodeURIComponent(senderName));
@@ -60,7 +63,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // ============================================================================
-// FIREBASE HELPER FUNCTIONS
+// API HELPER FUNCTIONS (Cloudflare Worker + D1)
 // ============================================================================
 
 /**
@@ -77,33 +80,17 @@ function generateTrackingId() {
 }
 
 /**
- * Check if Firebase is available
- * @returns {boolean}
- */
-function isFirebaseReady() {
-    return typeof firebaseEnabled !== 'undefined' && firebaseEnabled && database;
-}
-
-/**
- * Create a new Valentine entry in Firebase
+ * Create a new Valentine entry via Cloudflare Worker API
  * @param {string} trackingId - Unique tracking ID
  * @param {string} senderName - Name of the sender
  */
 async function createValentineEntry(trackingId, senderName) {
-    if (!isFirebaseReady()) {
-        console.log('Firebase not available, skipping tracking');
-        return;
-    }
-    
     try {
-        await database.ref('valentines/' + trackingId).set({
-            senderName: senderName,
-            createdAt: Date.now(),
-            views: 0,
-            yesClicked: false,
-            yesClickedAt: null
+        await fetch(API_BASE + '/api/valentine', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ trackingId, senderName })
         });
-        console.log('Valentine entry created:', trackingId);
     } catch (error) {
         console.error('Error creating valentine entry:', error);
     }
@@ -114,16 +101,12 @@ async function createValentineEntry(trackingId, senderName) {
  * @param {string} trackingId - Tracking ID
  */
 async function recordView(trackingId) {
-    if (!isFirebaseReady() || !trackingId) {
-        return;
-    }
+    if (!trackingId) return;
     
     try {
-        const ref = database.ref('valentines/' + trackingId + '/views');
-        await ref.transaction(currentViews => {
-            return (currentViews || 0) + 1;
+        await fetch(API_BASE + '/api/valentine/' + trackingId + '/view', {
+            method: 'POST'
         });
-        console.log('View recorded for:', trackingId);
     } catch (error) {
         console.error('Error recording view:', error);
     }
@@ -134,16 +117,12 @@ async function recordView(trackingId) {
  * @param {string} trackingId - Tracking ID
  */
 async function recordYesClick(trackingId) {
-    if (!isFirebaseReady() || !trackingId) {
-        return;
-    }
+    if (!trackingId) return;
     
     try {
-        await database.ref('valentines/' + trackingId).update({
-            yesClicked: true,
-            yesClickedAt: Date.now()
+        await fetch(API_BASE + '/api/valentine/' + trackingId + '/yes', {
+            method: 'POST'
         });
-        console.log('Yes click recorded for:', trackingId);
     } catch (error) {
         console.error('Error recording yes click:', error);
     }
@@ -245,8 +224,8 @@ function generateLink() {
     const shareableLink = `${baseUrl}?from=${encodeURIComponent(name)}&id=${trackingId}`;
     const trackingLink = `${baseUrl}?track=${trackingId}`;
     
-    // Create Firebase entry for tracking (delayed to not block page render)
-    setTimeout(function() { createValentineEntry(trackingId, name); }, 1500);
+    // Create tracking entry via Cloudflare Worker API
+    createValentineEntry(trackingId, name);
     
     // Show link screen with both links
     showScreen('linkScreen');
@@ -527,7 +506,7 @@ function showTeaseMessage() {
 // ============================================================================
 
 function sayYes() {
-    // Record Yes click in Firebase
+    // Record Yes click via API
     if (currentTrackingId) {
         recordYesClick(currentTrackingId);
     }
@@ -831,47 +810,38 @@ function showDashboard(trackingId) {
     document.getElementById('dashboardStats').style.display = 'none';
     document.getElementById('dashboardError').style.display = 'none';
     
-    if (!isFirebaseReady()) {
-        showDashboardError('Firebase not available. Tracking features require Firebase setup.');
-        return;
-    }
-    
-    // Load Valentine data and set up real-time listener
+    // Load Valentine data from Cloudflare Worker API
     loadDashboardData(trackingId);
 }
 
 /**
- * Load dashboard data from Firebase with real-time updates
+ * Load dashboard data from Cloudflare Worker API
  * @param {string} trackingId - Tracking ID
  */
-function loadDashboardData(trackingId) {
-    if (!isFirebaseReady()) {
-        showDashboardError('Firebase not available');
-        return;
-    }
-    
+async function loadDashboardData(trackingId) {
     // Store tracking ID for refresh
     currentTrackingId = trackingId;
 
-    // One-time load to reduce Firebase connections/reads (free-tier safe)
-    database.ref('valentines/' + trackingId).once('value')
-        .then((snapshot) => {
-            const data = snapshot.val();
-            if (data) {
-                updateDashboardUI(data);
-            } else {
-                showDashboardError('Valentine not found');
-            }
-        })
-        .catch((error) => {
-            console.error('Dashboard error:', error);
+    try {
+        const response = await fetch(API_BASE + '/api/valentine/' + trackingId);
+        
+        if (response.ok) {
+            const data = await response.json();
+            updateDashboardUI(data);
+        } else if (response.status === 404) {
+            showDashboardError('Valentine not found');
+        } else {
             showDashboardError('Error loading data');
-        });
+        }
+    } catch (error) {
+        console.error('Dashboard error:', error);
+        showDashboardError('Error loading data. Please check your connection.');
+    }
 }
 
 /**
  * Update dashboard UI with Valentine data
- * @param {Object} data - Valentine data from Firebase
+ * @param {Object} data - Valentine data from API
  */
 function updateDashboardUI(data) {
     // Hide loading, show stats
@@ -953,12 +923,7 @@ function refreshDashboard() {
         document.getElementById('dashboardLoading').style.display = 'block';
         document.getElementById('dashboardStats').style.display = 'none';
         
-        // Data will update automatically via real-time listener
-        setTimeout(() => {
-            if (document.getElementById('dashboardStats').style.display === 'none') {
-                loadDashboardData(currentTrackingId);
-            }
-        }, 500);
+        loadDashboardData(currentTrackingId);
     }
 }
 
@@ -1026,62 +991,12 @@ function initCountdownTimer() {
 }
 
 // ============================================================================
-// LIVE VALENTINE COUNTER
+// INITIALIZATION - COUNTDOWN & COUNTER
 // ============================================================================
 
-/**
- * Initialize and fetch the live Valentine count from Firebase
- */
-function initLiveCounter() {
-    const counterEl = document.getElementById('valentineCount');
-    if (!counterEl) return;
-    // Free-tier safe: keep a static, friendly estimate (no Firebase reads/subscriptions)
-    counterEl.textContent = '50,000+';
-}
-
-/**
- * Animate counter from current value to target value
- * @param {HTMLElement} element - The element to update
- * @param {number} target - Target count value
- */
-function animateCounter(element, target) {
-    const current = parseInt(element.textContent.replace(/,/g, '')) || 0;
-    const diff = target - current;
-    
-    // If difference is small, just set it directly
-    if (Math.abs(diff) < 5) {
-        element.textContent = target.toLocaleString();
-        return;
-    }
-    
-    // Animate the count
-    const duration = 1000; // 1 second
-    const steps = 30;
-    const stepValue = diff / steps;
-    let step = 0;
-    
-    const interval = setInterval(() => {
-        step++;
-        const newValue = Math.round(current + (stepValue * step));
-        element.textContent = newValue.toLocaleString();
-        
-        if (step >= steps) {
-            clearInterval(interval);
-            element.textContent = target.toLocaleString();
-        }
-    }, duration / steps);
-}
-
-// Initialize countdown immediately (no Firebase dependency)
+// Initialize countdown immediately
 document.addEventListener('DOMContentLoaded', function() {
     initCountdownTimer();
-});
-
-// Set static live counter after page load (no Firebase reads)
-window.addEventListener('load', function() {
-    setTimeout(function() {
-        initLiveCounter();
-    }, 1000);
 });
 
 // ============================================================================

@@ -1,14 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-HDVZBTE0GC"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-HDVZBTE0GC');
-    </script>
+    <!-- Cookie Consent -->
+    <script src="/consent.js" defer></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
@@ -508,7 +502,7 @@
                 <li><strong>GitHub Pages</strong> - Free, easy setup, custom domain support</li>
                 <li><strong>Netlify</strong> - Drag-and-drop deployment, free SSL</li>
                 <li><strong>Vercel</strong> - One-click deploy, automatic HTTPS</li>
-                <li><strong>Firebase Hosting</strong> - Google's free hosting option</li>
+                <li><strong>Cloudflare Workers + D1</strong> - Free serverless API & database</li>
             </ul>
             
             <h3>Deploy to GitHub Pages</h3>
@@ -536,7 +530,7 @@
             
             <div class="faq-item">
                 <h3>Can I remove the tracking features?</h3>
-                <p>Yes! The Firebase tracking is optional. Simply remove the Firebase script tags to run a fully static version.</p>
+                <p>Yes! The tracking is optional. The app works as a fully static site without the Cloudflare Worker API. Simply remove the API calls to run a standalone version.</p>
             </div>
             
             <div class="faq-item">

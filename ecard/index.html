@@ -1,14 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-HDVZBTE0GC"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-HDVZBTE0GC');
-    </script>
+    <!-- Cookie Consent -->
+    <script src="/consent.js" defer></script>
     
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
@@ -64,7 +58,7 @@
     <!-- Performance -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <!-- Removed preconnect to firebaseio.com - causes Googlebot blocked resource warnings -->
+    <!-- Firebase removed - using Cloudflare Workers + D1 for tracking -->
     
     <!-- Use main styles.css -->
     <link rel="stylesheet" href="../styles.css?v=24">
@@ -124,7 +118,7 @@
             {
                 "@type": "Question",
                 "name": "Can I track if they opened it?",
-                "acceptedAnswer": { "@type": "Answer", "text": "Yes! After creating your e-card, click Track Now to see when they opened it and whether they said Yes. Real-time updates!" }
+                "acceptedAnswer": { "@type": "Answer", "text": "Yes! After creating your e-card, click Track Now to see when they opened it and whether they said Yes. Refresh to see the latest updates." }
             },
             {
                 "@type": "Question",
@@ -192,6 +186,7 @@
             overflow-x: hidden;
             align-items: flex-start;
             padding: 20px;
+            padding-top: 10px;
             display: flex;
             flex-direction: column;
         }
@@ -200,7 +195,7 @@
             width: 100%;
             max-width: 420px;
             margin: 0 auto;
-            padding: 20px 0 40px;
+            padding: 10px 0 40px;
             flex-shrink: 0;
         }
         
@@ -209,7 +204,7 @@
             background: white;
             border-radius: 20px;
             padding: 25px 20px;
-            margin: 20px auto;
+            margin: 5px auto 20px;
             max-width: 400px;
             box-shadow: 0 10px 40px rgba(255, 107, 157, 0.2);
         }
@@ -1096,7 +1091,7 @@
                                 <span class="faq-toggle">+</span>
                             </div>
                             <div class="faq-answer">
-                                <p>Yes! After creating your e-card, click "Track Now" to see when they opened it and whether they said Yes. Real-time updates!</p>
+                                <p>Yes! After creating your e-card, click "Track Now" to see when they opened it and whether they said Yes. Refresh to see the latest updates.</p>
                             </div>
                         </div>
                         <div class="faq-item" onclick="toggleFaq(this)">
@@ -1519,7 +1514,7 @@
                 <h4>What We Collect (Minimal):</h4>
                 <ul>
                     <li>✅ Names you enter for e-card personalization (visible in the link URL)</li>
-                    <li>✅ Basic tracking data via Firebase (view count)</li>
+                    <li>✅ Basic tracking data (view count)</li>
                     <li>❌ No email addresses or personal information</li>
                     <li>❌ No location data</li>
                     <li>❌ No account creation required</li>
@@ -1527,7 +1522,7 @@
                 <h4>Cookies & Third-Party Services:</h4>
                 <ul>
                     <li>🔹 <strong>Google Analytics</strong> — anonymous usage stats</li>
-                    <li>🔹 <strong>Firebase</strong> — e-card tracking data</li>
+                    <li>🔹 <strong>Cloudflare</strong> — e-card tracking data (secure, no cookies)</li>
                     <li>🔹 <strong>Google Fonts</strong> — typography</li>
                 </ul>
                 <p style="margin-top: 15px;"><a href="/privacy/" style="color: #ff6b9d; font-weight: 600;">📄 Read Full Privacy Policy →</a></p>
@@ -1539,31 +1534,11 @@
     <!-- QR Code Library -->
     <script src="https://cdn.jsdelivr.net/npm/qrious@4.0.2/dist/qrious.min.js"></script>
     
-    <!-- Firebase SDK -->
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js";
-        import { getDatabase, ref, set, get, onValue } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-database.js";
-        
-        const firebaseConfig = {
-            apiKey: "AIzaSyBQNAhOgaB-Dl0KSwBXtBDmN8THhuGZjno",
-            authDomain: "willyoubemyvalentinefun.firebaseapp.com",
-            databaseURL: "https://willyoubemyvalentinefun-default-rtdb.firebaseio.com",
-            projectId: "willyoubemyvalentinefun",
-            storageBucket: "willyoubemyvalentinefun.firebasestorage.app",
-            messagingSenderId: "483037233730",
-            appId: "1:483037233730:web:473242923ec224a2ac63db"
-        };
-        
-        const app = initializeApp(firebaseConfig);
-        const database = getDatabase(app);
-        
-        window.firebaseDb = database;
-        window.firebaseRef = ref;
-        window.firebaseSet = set;
-        window.firebaseGet = get;
-        window.firebaseOnValue = onValue;
-        window.firebaseReady = true;
-        if (window.onFirebaseReady) window.onFirebaseReady();
+    <!-- Cloudflare Worker API -->
+    <script>
+        const API_BASE = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
+            ? 'http://127.0.0.1:8787'
+            : 'https://valentine-api.achaudhary7.workers.dev';
     </script>
     
     <script>
@@ -1677,11 +1652,14 @@
                 createdAt: new Date().toISOString(), viewed: false, responded: false
             };
             
-            saveECardToFirebase(ecardId, ecardData);
+            saveECardToAPI(ecardId, ecardData);
             currentECardId = ecardId;
             currentECardData = ecardData;
             
-            const link = `https://willyoubemyvalentine.fun/ecard/?id=${ecardId}`;
+            const baseUrl = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
+                ? window.location.origin + '/ecard/index.html'
+                : 'https://willyoubemyvalentine.fun/ecard/';
+            const link = `${baseUrl}?id=${ecardId}`;
             document.getElementById('generatedLink').textContent = link;
             document.getElementById('previewFrom').textContent = senderName;
             document.getElementById('previewTo').textContent = recipientName;
@@ -1694,11 +1672,13 @@
             generateQRCode(link);
         }
         
-        function saveECardToFirebase(id, data) {
+        function saveECardToAPI(id, data) {
             ecardSaved = false;
-            if (!window.firebaseReady) { setTimeout(() => saveECardToFirebase(id, data), 500); return; }
-            const ecardRef = window.firebaseRef(window.firebaseDb, 'valentines/' + id);
-            window.firebaseSet(ecardRef, data).then(() => { ecardSaved = true; }).catch(err => console.error('Save error:', err));
+            fetch(API_BASE + '/api/ecard', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ ecardId: id, from: data.from, to: data.to, theme: data.theme, message: data.message })
+            }).then(() => { ecardSaved = true; }).catch(err => console.error('Save error:', err));
         }
         
         // Link actions
@@ -1746,29 +1726,30 @@
         function closeDashboard() { document.getElementById('dashboardModal').style.display = 'none'; }
         
         function loadDashboardData() {
-            if (!window.firebaseReady || !currentECardId) return;
-            const ecardRef = window.firebaseRef(window.firebaseDb, 'valentines/' + currentECardId);
-            window.firebaseOnValue(ecardRef, (snapshot) => {
-                const data = snapshot.val();
-                if (data) {
-                    document.getElementById('dashboardContent').innerHTML = `
-                        <div style="background: var(--light-pink); padding: 15px; border-radius: 12px; margin-bottom: 15px;">
-                            <p><strong>To:</strong> ${data.to}</p>
-                            <p><strong>Theme:</strong> ${THEME_EMOJIS[data.theme]} ${THEME_NAMES[data.theme]}</p>
-                        </div>
-                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
-                            <div style="background: ${data.viewed ? '#d4edda' : '#f8f9fa'}; padding: 15px; border-radius: 10px; text-align: center;">
-                                <div style="font-size: 1.5rem;">${data.viewed ? '✅' : '⏳'}</div>
-                                <div style="font-weight: 600;">${data.viewed ? 'Viewed!' : 'Not Yet'}</div>
+            if (!currentECardId) return;
+            fetch(API_BASE + '/api/ecard/' + currentECardId)
+                .then(r => r.json())
+                .then(data => {
+                    if (data && !data.error) {
+                        document.getElementById('dashboardContent').innerHTML = `
+                            <div style="background: var(--light-pink); padding: 15px; border-radius: 12px; margin-bottom: 15px;">
+                                <p><strong>To:</strong> ${data.to}</p>
+                                <p><strong>Theme:</strong> ${THEME_EMOJIS[data.theme]} ${THEME_NAMES[data.theme]}</p>
                             </div>
-                            <div style="background: ${data.responded ? '#d4edda' : '#f8f9fa'}; padding: 15px; border-radius: 10px; text-align: center;">
-                                <div style="font-size: 1.5rem;">${data.responded ? '💕' : '⏳'}</div>
-                                <div style="font-weight: 600;">${data.responded ? 'Said Yes!' : 'Waiting'}</div>
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                                <div style="background: ${data.viewed ? '#d4edda' : '#f8f9fa'}; padding: 15px; border-radius: 10px; text-align: center;">
+                                    <div style="font-size: 1.5rem;">${data.viewed ? '✅' : '⏳'}</div>
+                                    <div style="font-weight: 600;">${data.viewed ? 'Viewed!' : 'Not Yet'}</div>
+                                </div>
+                                <div style="background: ${data.responded ? '#d4edda' : '#f8f9fa'}; padding: 15px; border-radius: 10px; text-align: center;">
+                                    <div style="font-size: 1.5rem;">${data.responded ? '💕' : '⏳'}</div>
+                                    <div style="font-weight: 600;">${data.responded ? 'Said Yes!' : 'Waiting'}</div>
+                                </div>
                             </div>
-                        </div>
-                    `;
-                }
-            });
+                        `;
+                    }
+                })
+                .catch(err => console.error('Dashboard load error:', err));
         }
         
         // Recipient view
@@ -1814,9 +1795,9 @@
         }
         
         function sayYes() {
-            if (window.firebaseReady && currentECardId) {
-                const ecardRef = window.firebaseRef(window.firebaseDb, 'valentines/' + currentECardId);
-                window.firebaseSet(ecardRef, { ...currentECardData, responded: true, respondedAt: new Date().toISOString() });
+            if (currentECardId) {
+                fetch(API_BASE + '/api/ecard/' + currentECardId + '/respond', { method: 'POST' })
+                    .catch(err => console.error('Response record error:', err));
             }
             showScreen('successScreen');
             createConfetti();
@@ -1844,33 +1825,29 @@
             if (ecardId) {
                 document.getElementById('introScreen').classList.remove('active');
                 document.getElementById('loadingScreen').style.display = 'flex';
-                loadECardFromFirebase(ecardId);
+                loadECardFromAPI(ecardId);
             }
         }
         
-        function loadECardFromFirebase(id, retryCount = 0) {
-            if (!window.firebaseReady) {
-                if (retryCount < 10) setTimeout(() => loadECardFromFirebase(id, retryCount + 1), 500);
-                else showECardNotFoundError();
-                return;
-            }
-            const ecardRef = window.firebaseRef(window.firebaseDb, 'valentines/' + id);
-            window.firebaseGet(ecardRef).then((snapshot) => {
-                if (snapshot.exists()) {
+        function loadECardFromAPI(id) {
+            fetch(API_BASE + '/api/ecard/' + id)
+                .then(r => {
+                    if (!r.ok) throw new Error('Not found');
+                    return r.json();
+                })
+                .then(data => {
                     currentECardId = id;
-                    currentECardData = snapshot.val();
-                    if (!currentECardData.viewed) {
-                        window.firebaseSet(ecardRef, { ...currentECardData, viewed: true, viewedAt: new Date().toISOString() });
+                    currentECardData = data;
+                    if (!data.viewed) {
+                        fetch(API_BASE + '/api/ecard/' + id + '/view', { method: 'POST' })
+                            .catch(err => console.error('View record error:', err));
                     }
-                    applyThemeBackground(currentECardData.theme);
+                    applyThemeBackground(data.theme);
                     showScreen('envelopeScreen');
-                } else {
+                })
+                .catch(() => {
                     showECardNotFoundError();
-                }
-            }).catch(() => {
-                if (retryCount < 2) setTimeout(() => loadECardFromFirebase(id, retryCount + 1), 1000);
-                else showECardNotFoundError();
-            });
+                });
         }
         
         function showECardNotFoundError() {
@@ -2037,7 +2014,7 @@
         function initLiveCounter() {
             const counterEl = document.getElementById('valentineCount');
             if (!counterEl) return;
-            // Free-tier safe: keep a static, friendly estimate (no Firebase reads/subscriptions)
+            // Static counter - no backend reads needed
             counterEl.textContent = '50,000+';
         }
         
@@ -2071,9 +2048,7 @@
         document.addEventListener('DOMContentLoaded', () => {
             checkUrlParams();
             initCountdownTimer();
-            // Delay Firebase-dependent live counter to not block page render for Googlebot
-            // Firebase uses WebSocket (unsupported by WRS) and long-polling (blocked by robots.txt)
-            setTimeout(() => { initLiveCounter(); }, 3000);
+            initLiveCounter();
             
             // Theme selection - handle both change and click events for better mobile support
             const themeRadios = document.querySelectorAll('input[name="theme"]');
